@@ -5,19 +5,19 @@ package exercise;
 // restrictions   
 
 public class Ex02 {
-	//public int {* -> Alice&Chuck } x;
+	public int {* -> Alice&Chuck } x;
 
-	//public void add1{T1}(int {T2}y1, int {T3}y2) {
-	//	x = y1 + y2;
-	//}
-	//public void add2{T4}(int {T5}y1, int {T6}y2) {
-	//	x = y1 + y2;
-	//}
-	//public void add3{T7}(int {T8}y1, int {T9}y2) {
-	//	x = y1 + y2;
-	//}
+	public void add1{*->_}(int {*->Alice,Bob}y1, int {*->Chuck,Bob}y2) {
+		x = y1 + y2;
+	}
+	public void add2{*->Alice,Bob}(int {*->(Alice&Chuck),Bob}y1, int {*->(Alice&Chuck),Bob}y2) {
+		x = y1 + y2;
+	}
+	public void add3{*->_}(int {*->(Alice&Chuck),Bob}y1, int {*->(Alice&Chuck),Bob}y2) {
+		x =  y1 + y2;
+	}
 
-/*
+
 	public static void main{*->_}(String [] args) {
 		Ex02 o = new Ex02();
 		int {*->Alice,Bob} v1 = 10;
@@ -39,5 +39,5 @@ public class Ex02 {
 		}
 		o.add3(w1,w2);
 	}
-	*/
+	
 }
