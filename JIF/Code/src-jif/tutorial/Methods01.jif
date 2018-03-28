@@ -12,9 +12,9 @@ public class Methods01 {
 
 	public static void main{*->_}(String [] params) {
 		boolean {*->Alice,Chuck} cnd = true;
-		hello();
+		//hello();
 		if (cnd) {
-			hello();
+			//hello();
 		}
 	}
 }
