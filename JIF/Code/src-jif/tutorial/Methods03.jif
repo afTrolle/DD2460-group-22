@@ -1,0 +1,11 @@
+
+public class Methods03 {
+	public static int hello {*->Bob,Chuck}  (int {*->Bob,Chuck} v) : {*->Bob} {
+		return v + 10;
+	}
+	
+	public static void main{}(String [] params) {
+		int {*->Alice,Bob,Chuck} val = 1;
+		int {*->Bob&Chuck} val2 = hello(val);
+	}
+}

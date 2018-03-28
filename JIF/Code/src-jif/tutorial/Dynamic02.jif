@@ -1,0 +1,49 @@
+class Dynamic02 {
+  public static int add(label L, int {*L} value1, int {*L} value2) : {*L} {
+  	return value1+value2;
+  }
+
+  public static int add1(label L1, label L2, int {*L1} value1, int {*L2} value2) : {*L1;*L2} {
+  	return value1+value2;
+  }
+
+  public static void test {*->_} () {
+  	int {*->Bob} v1 = 10;
+  	int {*->Bob} v2 = 11;
+  	v1 = add(new label{*->Bob}, v1, v2);
+
+  	int {*->Alice} x1 = 10;
+  	int {*->Alice} x2 = 11;
+  	x1 = add(new label{*->Alice}, x1, x2);
+  	
+  	int {*->(Alice&Bob&Chuck)} res = add1(new label {*->Bob}, new label {*->Alice}, v1, x1);
+  }
+
+  public static int add2(label L, int {*L} value1, int {*->Bob} value2) : {*->Bob} 
+  	where {*L} <= {*->Bob} {
+  	return value1+value2;
+  }
+  public static void test1 {*->_} () {
+  	int {*->Alice} v1 = 10;
+  	int {*->Alice,Bob} v2 = 10;
+  	int {*->Bob} v3 = 11;
+  	
+  	v3 = add2(new label{*->Alice,Bob}, v2, v3);
+  	
+  	if (Bob actsfor Alice) {
+  		v3 = add2(new label {*->Alice}, v1, v3);
+  	}
+
+	/*
+	to be fixed.
+	
+	  	
+  	final label l = new label {*->Alice}; 
+  	if (l <= new label {*->Bob}) {
+  		v3 = add2(l, v1, v3);
+  	}
+  	*/
+  }	
+}
+
+

@@ -1,0 +1,42 @@
+class Dynamic01 {
+  public static int add(principal P, int {*->P} value1, int {*->P} value2) : {*->P} {
+  	return value1+value2;
+  }
+
+  public static int add1(principal P1, principal P2, int {*->P1} value1, int {*->P2} value2) : {*->(P1&P2)} {
+  	return value1+value2;
+  }
+
+  public static void test {*->_} () {
+  	int {*->Bob} v1 = 10;
+  	int {*->Bob} v2 = 11;
+  	v1 = add(Bob, v1, v2);
+
+  	int {*->Alice} x1 = 10;
+  	int {*->Alice} x2 = 11;
+  	x1 = add(Alice, x1, x2);
+  	
+  	int {*->(Alice&Bob&Chuck)} res = add1(Bob, Alice, v1, x1);
+  }
+
+  public static int add2(principal P, int {*->P} value1, int {*->Bob} value2) : {*->P} 
+  	where P actsfor Bob {
+  	return value1+value2;
+  }
+  public static int add3(principal P, int {*->P} value1, int {*->Bob} value2) : {*->Bob} 
+  	where Bob actsfor P {
+  	return value1+value2;
+  }
+  public static void test1 {*->_} () {
+  	int {*->Alice} v1 = 10;
+  	int {*->Bob} v2 = 11;
+  	if (Alice actsfor Bob) {
+  		v1 = add2(Alice, v1, v2);
+  	} else if (Bob actsfor Alice) {
+  		v2 = add3(Alice, v1, v2);
+  	} else {
+  		v2 = add2(Bob, v2, v2);
+  	}
+  }
+
+}

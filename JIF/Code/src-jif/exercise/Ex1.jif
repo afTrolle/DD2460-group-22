@@ -1,0 +1,25 @@
+package exercise;
+// Replace T with the least restrictive label for totalTransaction
+
+public class Ex1 {
+	// Alice has 1000 SEK in her Bank account.
+	// The bank is managed by Chuck
+	// Bob has 800 SEK
+	public static void main(String [] args) {
+	//	int {* -> Alice,Chuck} aliceAccount = 1000;
+	//	int {*->Bob, Chuck}bobAccount = 800;
+	//	int sharedCost = 100;
+
+	//	int {T} totalTransaction = 0;
+	//	if (aliceAccount >= sharedCost) {
+	//		aliceAccount -= sharedCost;
+	//		totalTransaction +=  sharedCost;
+	//	}
+	//	if (bobAccount >= sharedCost) {
+	//		bobAccount -= sharedCost;
+	//		totalTransaction +=  sharedCost;
+	//	}
+	 //   return;
+	}
+	
+}

@@ -1,0 +1,16 @@
+// Language features / inplicit flow
+
+import jif.principals.*;
+
+public class TerminationInsensitive01 {
+	public static void main(String [] args) {
+		
+		int {* -> Bob} v1 = 1;
+		int {* -> Bob} v2 = 2;
+		int {* -> Chuck} v3 = 3;
+		while (v2 >= 10) {
+			v1 +=1;
+		}
+		v3=7;
+	} 
+}

@@ -1,0 +1,14 @@
+
+public class Methods02 {
+	static boolean {*->Bob} a;
+
+	public static void hello {*->Bob,Chuck} (boolean {*->Bob,Chuck} v) {
+	//public static void hello {*->Bob;*->Chuck} () {
+		a = v;
+	}
+	
+	public static void main{}(String [] params) {
+		boolean {*->Alice,Bob,Chuck} cnd = true;
+		hello(cnd);
+	}
+}

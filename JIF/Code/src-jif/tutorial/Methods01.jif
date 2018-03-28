@@ -1,0 +1,20 @@
+
+public class Methods01 {
+	static boolean {*->Bob} a;
+
+	//public static void hello () {
+	//public static void hello {_->_} () {
+	public static void hello {*->Bob,Chuck} () {
+	//public static void hello {*->Bob;*->Chuck} () {
+		a = true;
+	}
+
+
+	public static void main{*->_}(String [] params) {
+		boolean {*->Alice,Chuck} cnd = true;
+		hello();
+		if (cnd) {
+			hello();
+		}
+	}
+}

@@ -1,0 +1,14 @@
+class Parametrized01 [label L1, label L2] where L1 <= L2 {
+	public void hello{L1}(int {L2} x) {
+	}
+	
+	public static void test{*->_}() {
+		int {*->Alice,Bob} value = 10;
+		Parametrized01[{*->Alice,Bob}, {*->Bob}] a = new Parametrized01[{*->Alice,Bob}, {*->Bob}]();
+		a.hello(value);
+		Parametrized01[{*->_}, {*->Bob,Chuck}] b = new Parametrized01[{*->_}, {*->Bob,Chuck}]();
+		//b.hello(value);
+		//b = a;
+		//a = b;
+	}
+}

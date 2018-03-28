@@ -1,0 +1,28 @@
+package exercise;
+
+// Implement the Node class of LinkedList
+// Add annotations to the methods and field
+// Only Alice and Bob are allowed to access the integers stored in the list
+// Alice, Bob and Chuck are allowed to know how many elements are in the list
+// Write the annotations (labels) for fields and methods.
+
+public class  Node  {
+	public int value;
+	public Node  next;
+
+	public Node(int value) {
+	}
+
+	public void add(int  value)  {
+	}
+
+	public int length() {
+	return -1;
+	}
+
+	// Throws exception for  negative parameters
+	public int get(int i) throws Exception {
+	
+	return -1;
+	}
+}

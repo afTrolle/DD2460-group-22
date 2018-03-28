@@ -1,0 +1,27 @@
+public class Exception01 {
+	static int {*->Bob} a;
+
+	public static void hello{*->Bob,Chuck}(int {*->Bob}x, int {*->Bob}y) {
+		try{
+			a = x/y;
+		}
+		catch (ArithmeticException ex) {
+		}
+	}
+
+	public static void hello1{*->Bob,Chuck}(int {*->Bob}x, int {*->Bob}y) : {*->Bob} throws ArithmeticException {
+		a = x/y;
+	}
+	
+	public static void main{}(String [] args) {
+		int {*->Bob} x = 1;
+		int {*->Bob,Chuck} y = 1;
+		int {*->Bob} z;
+		try {
+			hello1(x,y);
+			z = 1;
+		} catch (ArithmeticException ex) {
+		}
+	}
+	
+}

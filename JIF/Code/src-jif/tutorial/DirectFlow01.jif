@@ -1,0 +1,8 @@
+public class DirectFlow01 {
+	public static void main(String [] args) {
+		int {* -> Bob} x;
+		int {* -> Bob, Chuck} y = 5;
+		x = y;  // OK: policy on x is stronger
+		// y = x; // ERROR: policy on y is not as strong as x
+	}
+}

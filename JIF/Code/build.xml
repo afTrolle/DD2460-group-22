@@ -1,0 +1,69 @@
+<project name="MinimalProject" default="jifc" basedir=".">
+	<property name="jif-base" location="/home/jif/Sources/dd2460/jif/sw/jif-3.5.0" />
+	
+	<property name="bin" location="${jif-base}/bin" />
+	<property name="jifc" location="${bin}/jifc" />
+	
+    <target name="jifc-principals" description="generate java code">
+        <apply executable="${jifc}" 
+               parallel="true" 
+               failonerror="true" 
+               dest="${basedir}"
+               relative="true" 
+               skipemptyfilesets="true" 
+               vmlauncher="true">
+        	<arg value="-c" />
+            <arg value="-d" />
+            <arg value="src" />
+            <arg value="-sourcepath" />
+            <arg value="src-jif" />
+            <arg value="-classpath" />
+            <arg value="bin" />
+            <srcfile />
+            <fileset dir="${basedir}" includes="src-jif/jif/principals/**/*.jif" />
+            <mapper type="regexp" from="^src-jif(.*)\.jif" to="src\1\.java" />
+        </apply>
+    </target>
+    
+    <target name="compile-principals" depends="jifc-principals">
+        <mkdir dir="bin"/>
+        <javac srcdir="src" destdir="bin"
+        includes="jif/principals/**"
+        includeAntRuntime="false"
+        classpath="${jif-base}/lib/jiflib.jar;${jif-base}/lib/jifrt.jar"
+        />
+    </target>
+
+	<target name="jifc" description="generate java code" depends="compile-principals">
+        <apply executable="${jifc}" 
+               parallel="true" 
+               failonerror="true" 
+               dest="${basedir}"
+               relative="true" 
+               skipemptyfilesets="true" 
+               vmlauncher="true">
+        	<arg value="-c" />
+        	<arg value="-nonrobust" />
+            <arg value="-d" />
+            <arg value="src" />
+            <arg value="-sourcepath" />
+            <arg value="src-jif" />
+            <arg value="-classpath" />
+            <arg value="bin" />
+        	<arg value="-explain" />	
+            <srcfile />
+            <fileset dir="${basedir}" includes="src-jif/**/*.jif" />
+            <mapper type="regexp" from="^src-jif(.*)\.jif" to="src\1\.java" />
+        </apply>
+    </target>
+
+    <target name="compile" depends="jifc">
+        <mkdir dir="bin"/>
+        <javac srcdir="src" destdir="bin"
+        expludes="jif/principals/**"
+        includeAntRuntime="false"
+		classpath="${jif-base}/lib/jiflib.jar;${jif-base}/lib/jifrt.jar"
+	/>
+    </target>
+
+</project>

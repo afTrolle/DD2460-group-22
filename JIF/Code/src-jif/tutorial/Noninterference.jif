@@ -1,0 +1,31 @@
+class Noninterference {
+/*
+	public static void login() {
+		String {*->_} input = "Hello";
+		String {Alice->Alice} password = "PWD";
+		boolean {*->_} logged = input.equals(password);
+	}
+*/
+/*
+	public static void average() {
+		int {Alice->Alice} v1 = 10;
+		int {Bob->Bob} v2 = 20;
+		int {Chuck->Chuck} v3 = 17;
+		int {*->_} average = (v1+v2+v3)/3;
+	}
+*/
+/*
+	public static void otp() {
+		int {Alice->Alice} secret = 62;
+		int {Alice->Alice} random = 12345;
+		int {*->_} output = secret ^ random;
+	}
+	*/
+	/*
+	public static void RSA() {
+		int {Alice->Alice,Bob} message = 62;
+		int {*->_} bobPublicKey = 12345;
+		int {*->_} output = message ^ bobPublicKey; // Super complex operation implements RSA encryption
+	}
+	*/
+}

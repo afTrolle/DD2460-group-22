@@ -1,0 +1,37 @@
+public class Exception02 {
+	public Exception02 {*->Bob,Chuck} next;
+	public int {*->Bob,Chuck} value;
+
+	public void hello() : {*→Bob,Chuck} throws NullPointerException {
+		int {*->Bob} tot = 0;
+		tot += this.value;
+		tot += this.next.value;
+	}
+
+	public void hello1() {
+		int {*->Bob} tot = 0;
+		tot += this.value;
+		try {
+			tot += this.next.value;
+		} catch (NullPointerException ex) {
+		}
+	}
+	public void hello2() {
+		int {*->Bob} tot = 0;
+		tot += this.value;
+		Exception02 localNext = this.next; 
+		if (localNext != null) {
+			tot += localNext.value;
+		}
+	}
+	
+	/*
+	public void hello3() {
+		int {*->Bob} tot = 0;
+		tot += this.value;
+		if (this.next != null) {
+			tot += this.next.value;
+		}
+	}
+	*/
+}

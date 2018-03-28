@@ -1,0 +1,13 @@
+public class References01 {
+	public int {*->Bob,Alice} b;
+	public int {*->Bob,Alice,Chuck} c;
+
+	public static void hello() {
+		References01 {*->Bob,Alice}x = new References01();
+		References01 {*->Bob,Alice}y = new References01();
+		//References {Bob->Bob,Alice,Chuckj}w = new References();
+		boolean {*->Bob,Chuck}z;
+		//z = (x == y);
+		//z = (x.c == 10);
+	}
+}

@@ -1,0 +1,55 @@
+package exercise;
+
+// Implement the Node class of LinkedList
+// Add annotations to the methods and field
+// Alice, Bob and Chuck expresse concern about the content of the list.
+//   The list contains some of their private data so each of them wants
+//   to keep the data private.
+// Alice, Bob and Chuck allow each other to know how many elements are in the list 
+// Complete the code and add annotations and declassification where needed
+
+public class  Node2 {
+	public int value;
+	public Node2 next;
+
+	public Node2(int value) {
+	}
+
+	public void add(int value)  {
+	}
+
+	public int length() {
+	return -1;
+	}
+
+	public int get(int i) throws Exception {
+	return -1;
+	}
+
+	/*
+	public int mean() {
+		Node2 node = this;
+		int total = 0;
+		int count = 0;
+		while (node != null) {
+			count += 1;
+			total += node.value;
+			node = node.next;
+		}
+		return total / count;
+	}
+*/
+
+/*
+	public int {Alice->Chuck;Bob->Chuck; Chuck->Chuck} discloseMeanToChuck(){
+		int mean = mean();
+		return mean;
+	}
+*/
+/*
+	public int {Chuck->Chuck} transferMeanToChuck()  {
+		int mean = discloseMeanToChuck();
+		return mean;
+	}
+	*/
+}

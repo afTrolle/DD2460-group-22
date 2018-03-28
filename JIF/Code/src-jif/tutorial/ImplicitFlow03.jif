@@ -1,0 +1,15 @@
+// Language features / inplicit flow
+
+import jif.principals.*;
+
+public class ImplicitFlow03 {
+	public static void main(String [] args) {
+		// Dependency on multiple variables
+		int {* -> Bob} v1 = 1;
+		int {* -> Bob} v2 = 2;
+		int {* -> Chuck} v3 = 3;
+		if (v2 == v3) {
+    		//v1 = 10;
+		}
+	} 
+}

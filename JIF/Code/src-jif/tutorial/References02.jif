@@ -1,0 +1,8 @@
+public class References02 {
+	public static int {*->Bob,Alice,Chuck} a;
+	public int {*->Bob,Alice,Chuck} b;
+
+	public void hello() {
+		// a = b;
+	}
+}

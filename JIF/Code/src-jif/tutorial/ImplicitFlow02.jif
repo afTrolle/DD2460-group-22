@@ -1,0 +1,15 @@
+// Language features / inplicit flow
+
+import jif.principals.*;
+
+public class ImplicitFlow02 {
+	public static void main(String [] args) {
+		
+		boolean {* -> Bob,Chuck} l = false;
+		boolean {* -> Bob} h = true;
+		if (h) {
+    		boolean {* -> Bob,Chuck} v = true;
+   	 		// l = v;
+		}
+	} 
+}

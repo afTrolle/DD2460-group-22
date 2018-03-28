@@ -1,0 +1,13 @@
+public class DirectFlow02 {
+	public static void main(String [] args) {
+		int {* -> Bob} x1 = 1;
+		int {* -> Chuck} x2 = 1;
+		int {* -> Bob, Chuck} y = 1;
+		int {* -> Bob&Chuck} z = 1;
+		// x = y;
+		z = x1 + x2;
+		z = y + x2;
+		x1 = x1 + y;
+		// y = x;
+	}
+}

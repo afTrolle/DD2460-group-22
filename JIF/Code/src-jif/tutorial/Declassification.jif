@@ -1,0 +1,123 @@
+class Declassification authority (Alice, Bob, Chuck) {
+
+	/*
+	public static void  login() where authority (Alice) {
+		String {*->_} input = "Hello";
+		String {Alice->Alice} password = "PWD";
+		boolean {*->_} logged = input.equals(password);
+	}
+	*/
+	
+/*
+	public static void average() {
+		int {Alice->Alice} v1 = 10;
+		int {Bob->Bob} v2 = 20;
+		int {Chuck->Chuck} v3 = 17;
+		int {*->_} average = (v1+v2+v3)/3;
+	}
+*/
+/*
+	public static void otp() {
+		int {Alice->Alice} secret = 62;
+		int {Alice->Alice} random = 12345;
+		int {*->_} output = secret ^ random;
+	}
+	*/
+	/*
+	public static void RSA() {
+		int {Alice->Alice,Bob} message = 62;
+		int {*->_} bobPublicKey = 12345;
+		int {*->_} output = message ^ bobPublicKey; // Super complex operation implements RSA encryption
+	}
+	*/
+
+	public static void  login1 {*->_} () where authority (Alice) {
+		String {*->_} input = "Hello";
+		String {Alice->Alice} password = "PWD";
+		boolean {*->_} logged = declassify(
+			input.equals(password),
+			{Alice->Alice} to {*->_}
+		);
+	}
+	
+	public static void  login2 {Bob->Bob} () where authority (Alice) {
+		String {Bob->Bob} input = "Hello";
+		String {Alice->Alice} password = "PWD";
+		boolean {Bob->Bob} logged = declassify(
+			input.equals(password),
+			{Bob->Bob;Alice->Alice} to {Bob->Bob}
+		);
+	}
+
+	/*
+	public static void  login4 () where authority (Alice) {
+		String {Bob->Bob} input = "Hello";
+		String {Alice->Alice} password = "PWD";
+		boolean {Bob->Bob} logged = declassify(
+			input.equals(password),
+			{Bob->Bob;Alice->Alice} to {Bob->Bob}
+		);
+	}
+	*/
+	public static void  login5 {*->_}() where authority (Alice) {
+		String {*->_} input = "Hello";
+		String {Alice->Alice} password = "PWD";
+		String {*->_} publicPwd = declassify(
+			password,
+			{Alice->Alice} to {*->_}
+		);
+		boolean {*->_} logged = input.equals(publicPwd);
+	}
+	
+	static String {*->_} publicString;
+	public static void  login6 {*->_}() where authority (Alice) {
+		String {*->_} input = "Hello";
+		String {Alice->Alice} password = "PWD";
+		String {*->_} publicPwd = declassify(
+			password,
+			{Alice->Alice} to {*->_}
+		);
+		boolean {*->_} logged = input.equals(publicPwd);
+		publicString = publicPwd;
+	}
+
+	public static void  login7 {*->_} () where authority (Alice) {
+		String {*->_} input = "Hello";
+		String {Alice->Alice} password = "PWD";
+		boolean {*->_} logged = false;
+		if (input.equals(password)) {
+			declassify({Alice->Alice} to {*->_}) {
+				logged = true;
+			}
+		}
+	}
+	
+	public static void average1 {*->_} () where authority (Alice,Bob,Chuck) {
+		int {Alice->Alice} v1 = 10;
+		int {Bob->Bob} v2 = 20;
+		int {Chuck->Chuck} v3 = 17;
+		int {*->_} average = declassify(
+			(v1+v2+v3)/3,
+			{Alice&Bob&Chuck->Alice&Bob&Chuck} to {*->_}
+		);
+	}
+	public static void average2 {*->_} () where authority (Alice,Bob,Chuck) {
+		int {Alice->Alice} v1 = 10;
+		int {Bob->Bob} v2 = 20;
+		int {Chuck->Chuck} v3 = 17;
+		int {*->_} p1 = declassify(v1, {Alice->Alice} to {*->_});
+		int {*->_} p2 = declassify(v2, {Bob->Bob} to {*->_});
+		int {*->_} p3 = declassify(v3, {Chuck->Chuck} to {*->_});
+		int {*->_} average = (p1+p2+p3)/3;
+	}
+	public static void average3 {Bob->Bob} () where authority (Alice,Chuck) {
+		int {Alice->Alice} v1 = 10;
+		int {Bob->Bob} v2 = 20;
+		int {Chuck->Chuck} v3 = 17;
+		int {Bob->Bob} average = declassify(
+			(v1+v2+v3)/3,
+			{Alice&Bob&Chuck->Alice&Bob&Chuck} to {Bob->Bob}
+		);
+	}
+	
+}

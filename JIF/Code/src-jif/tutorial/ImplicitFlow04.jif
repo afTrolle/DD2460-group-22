@@ -1,0 +1,17 @@
+// Language features / inplicit flow
+
+import jif.principals.*;
+
+public class ImplicitFlow04 {
+	public static void main(String [] args) {
+		
+		int {* -> Bob} v1 = 1;
+		int {* -> Bob} v2 = 2;
+		int {* -> Chuck} v3 = 3;
+		if (v2 > 0) {
+			if (v3 > 0) {
+//    			v1 = 10;
+    		}
+		}
+	} 
+}

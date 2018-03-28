@@ -1,0 +1,43 @@
+package exercise;
+
+// Replace Ts with the labels that enable correct compilation. Try to be least restrictive
+// as possible, so that the methods can be invoked by other classes without unnecessary
+// restrictions   
+
+public class Ex02 {
+	//public int {* -> Alice&Chuck } x;
+
+	//public void add1{T1}(int {T2}y1, int {T3}y2) {
+	//	x = y1 + y2;
+	//}
+	//public void add2{T4}(int {T5}y1, int {T6}y2) {
+	//	x = y1 + y2;
+	//}
+	//public void add3{T7}(int {T8}y1, int {T9}y2) {
+	//	x = y1 + y2;
+	//}
+
+/*
+	public static void main{*->_}(String [] args) {
+		Ex02 o = new Ex02();
+		int {*->Alice,Bob} v1 = 10;
+		int {*->Chuck,Bob} v2 = 20;
+		boolean {*->Alice,Bob} v3 = true;
+
+		o.add1(v1, v2);
+
+		if (v3)
+			o.add2(v1, v2);
+		else
+			o.add2(v2, v1);
+			
+		int {*->Bob,Alice&Chuck} w1 = v1;
+		int {*->Bob,Alice&Chuck} w2 = v2;
+		if (!v3) {
+			w1 = v2;
+			w2 = v1;
+		}
+		o.add3(w1,w2);
+	}
+	*/
+}
