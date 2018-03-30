@@ -8,27 +8,47 @@ package exercise;
 // Alice, Bob and Chuck allow each other to know how many elements are in the list 
 // Complete the code and add annotations and declassification where needed
 
-public class  Node2 {
-	public int value;
-	public Node2 next;
+public class  Node2  authority (Alice, Bob, Chuck) {
 
-	public Node2(int value) {
+	public int {Alice->Alice;Chuck->Chuck;Bob->Bob} value;
+	public Node2 {Alice->Chuck,Bob,Alice;Bob->Alice,Chuck,Bob;Chuck->Bob,Alice,Chuck} next;
+
+	public Node2(int {Alice->Alice;Chuck->Chuck;Bob->Bob}value) {
+		this.value = value;
 	}
 
-	public void add(int value)  {
+	public void add{Alice->Chuck,Bob,Alice;Bob->Alice,Chuck,Bob;Chuck->Bob,Alice,Chuck}(int {Alice->Alice;Chuck->Chuck;Bob->Bob} value)  {
+		try {
+			next.add(value);
+		} catch (NullPointerException ex) {
+			next = new Node2(value);
+		}
 	}
 
-	public int length() {
-	return -1;
+
+	public int{Alice->Chuck,Bob,Alice;Bob->Alice,Chuck,Bob;Chuck->Bob,Alice,Chuck} length() {
+		try {
+			return next.length() + 1;
+		} catch (Exception e) {
+			return 0;
+		}
 	}
 
-	public int get(int i) throws Exception {
-	return -1;
+	public int get(int {Alice->Chuck,Bob,Alice;Bob->Alice,Chuck,Bob;Chuck->Bob,Alice,Chuck}i) : {Alice->Alice;Chuck->Chuck;Bob->Bob} throws Exception {
+		if (i < 0){
+			new Exception("Negative number");
+		} 
+		Node2 nextTemp = this;
+		for (int j = 0; j < i; j++){
+			nextTemp = nextTemp.next;
+		}
+		return nextTemp.value;
 	}
 
-	/*
-	public int mean() {
-		Node2 node = this;
+
+	
+	public int {*->_} mean {*->_} () where authority (Alice,Bob,Chuck)  {
+		Node2 {Alice->Chuck,Bob,Alice;Bob->Alice,Chuck,Bob;Chuck->Bob,Alice,Chuck} node = this;
 		int total = 0;
 		int count = 0;
 		while (node != null) {
@@ -36,16 +56,23 @@ public class  Node2 {
 			total += node.value;
 			node = node.next;
 		}
-		return total / count;
+		int deCount = declassify(count,{Alice->Chuck,Bob,Alice;Bob->Alice,Chuck,Bob;Chuck->Bob,Alice,Chuck} to {*->_}); 
+		int deTotal = declassify(total,{Alice&Bob&Chuck->Alice&Bob&Bob&Chuck}  to {*->_});
+		
+		try {
+			return deTotal / deCount;
+		} catch (Exception e){
+			return -1;
+		}
 	}
-*/
 
-/*
-	public int {Alice->Chuck;Bob->Chuck; Chuck->Chuck} discloseMeanToChuck(){
-		int mean = mean();
+
+
+	public int {Alice->Chuck;Bob->Chuck; Chuck->Chuck} discloseMeanToChuck{Alice&Bob&Chuck->Chuck}(){
+		int mean = declassify( mean(), {*->_} to {Alice->Chuck;Bob->Chuck; Chuck->Chuck}  ) ;
 		return mean;
 	}
-*/
+
 /*
 	public int {Chuck->Chuck} transferMeanToChuck()  {
 		int mean = discloseMeanToChuck();
