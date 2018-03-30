@@ -6,23 +6,41 @@ package exercise;
 // Alice, Bob and Chuck are allowed to know how many elements are in the list
 // Write the annotations (labels) for fields and methods.
 
-public class  Node  {
-	public int value;
-	public Node  next;
-
-	public Node(int value) {
-	}
-
-	public void add(int  value)  {
-	}
-
-	public int length() {
-	return -1;
-	}
-
-	// Throws exception for  negative parameters
-	public int get(int i) throws Exception {
+public class Node{
+	public int {*-> Alice,Bob} value;
+	public Node {*->Alice,Bob,Chuck} next;
 	
-	return -1;
+	public Node{*->Alice,Bob,Chuck}(int {*->Alice,Bob} value) {
+		this.value = value;
 	}
+
+	public void add{*->Alice,Bob,Chuck}(int {*->Alice,Bob}value)  {
+		try {
+			next.add(value);
+		} catch (NullPointerException ex) {
+			next = new Node(value);
+		}
+	}
+
+	public int{*->Alice,Bob,Chuck} length{*->Alice,Bob,Chuck}() {
+		try {
+			return next.length() + 1;
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
+	// Throws exception for negative parameters
+	public int get{*->Alice,Bob}(int {*->Alice,Bob}i) : {*->Alice,Bob}  throws Exception {
+		if (i < 0){
+			new Exception("Negative number");
+		} 
+		
+		Node nextTemp = this;
+		for (int j = 0; j < i; j++){
+			nextTemp = nextTemp.next;
+		}
+		return nextTemp.value;
+	}
+	
 }
