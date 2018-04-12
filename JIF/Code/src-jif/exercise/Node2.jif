@@ -11,13 +11,13 @@ package exercise;
 public class  Node2  authority (Alice, Bob, Chuck) {
 
 	public int {Alice->Alice;Chuck->Chuck;Bob->Bob} value;
-	public Node2 {Alice->Chuck,Bob,Alice;Bob->Alice,Chuck,Bob;Chuck->Bob,Alice,Chuck} next;
+	public Node2 {Alice->Chuck&Bob&Alice;Bob->Alice&Chuck&Bob;Chuck->Bob&Alice&Chuck} next;
 
 	public Node2(int {Alice->Alice;Chuck->Chuck;Bob->Bob}value) {
 		this.value = value;
 	}
 
-	public void add{Alice->Chuck,Bob,Alice;Bob->Alice,Chuck,Bob;Chuck->Bob,Alice,Chuck}(int {Alice->Alice;Chuck->Chuck;Bob->Bob} value)  {
+	public void add{Alice->Chuck&Bob&Alice;Bob->Alice&Chuck&Bob;Chuck->Bob&Alice&Chuck}(int {Alice->Alice;Chuck->Chuck;Bob->Bob} value)  {
 		try {
 			next.add(value);
 		} catch (NullPointerException ex) {
@@ -26,7 +26,7 @@ public class  Node2  authority (Alice, Bob, Chuck) {
 	}
 
 
-	public int{Alice->Chuck,Bob,Alice;Bob->Alice,Chuck,Bob;Chuck->Bob,Alice,Chuck} length() {
+	public int{Alice->Chuck&Bob&Alice;Bob->Alice&Chuck&Bob;Chuck->Bob&Alice&Chuck} length() {
 		try {
 			return next.length() + 1;
 		} catch (Exception e) {
@@ -34,7 +34,7 @@ public class  Node2  authority (Alice, Bob, Chuck) {
 		}
 	}
 
-	public int get(int {Alice->Chuck,Bob,Alice;Bob->Alice,Chuck,Bob;Chuck->Bob,Alice,Chuck}i) : {Alice->Alice;Chuck->Chuck;Bob->Bob} throws Exception {
+	public int get(int {Alice->Chuck&Bob&Alice;Bob->Alice&Chuck&Bob;Chuck->Bob&Alice&Chuck}i) : {Alice->Alice;Chuck->Chuck;Bob->Bob} throws Exception {
 		if (i < 0){
 			new Exception("Negative number");
 		} 
@@ -47,8 +47,8 @@ public class  Node2  authority (Alice, Bob, Chuck) {
 
 
 	
-	public int {*->_} mean {*->_} () where authority (Alice,Bob,Chuck)  {
-		Node2 {Alice->Chuck,Bob,Alice;Bob->Alice,Chuck,Bob;Chuck->Bob,Alice,Chuck} node = this;
+	public int {Alice->Alice&Bob&Chuck; Bob->Alice&Bob&Chuck; Chuck->Alice&Bob&Chuck} mean {*->Alice,Bob,Chuck} ()   {
+		Node2 node = this;
 		int total = 0;
 		int count = 0;
 		while (node != null) {
@@ -56,11 +56,10 @@ public class  Node2  authority (Alice, Bob, Chuck) {
 			total += node.value;
 			node = node.next;
 		}
-		int deCount = declassify(count,{Alice->Chuck,Bob,Alice;Bob->Alice,Chuck,Bob;Chuck->Bob,Alice,Chuck} to {*->_}); 
-		int deTotal = declassify(total,{Alice&Bob&Chuck->Alice&Bob&Bob&Chuck}  to {*->_});
+	
 		
 		try {
-			return deTotal / deCount;
+			return total / count;
 		} catch (Exception e){
 			return -1;
 		}
@@ -68,15 +67,15 @@ public class  Node2  authority (Alice, Bob, Chuck) {
 
 
 
-	public int {Alice->Chuck;Bob->Chuck; Chuck->Chuck} discloseMeanToChuck{Alice&Bob&Chuck->Chuck}(){
-		int mean = declassify( mean(), {*->_} to {Alice->Chuck;Bob->Chuck; Chuck->Chuck}  ) ;
+	public int {Alice->Chuck;Bob->Chuck;Chuck->Chuck} discloseMeanToChuck{*->_} () where authority (Alice,Bob,Chuck) {
+		int mean = declassify( mean(), {*->Alice&Bob&Chuck} to {Alice->Chuck;Bob->Chuck; Chuck->Chuck}  ) ;
 		return mean;
 	}
 
-/*
-	public int {Chuck->Chuck} transferMeanToChuck()  {
-		int mean = discloseMeanToChuck();
+
+	public int {Chuck->Chuck} transferMeanToChuck{*->_} () where authority (Alice,Bob,Chuck)  {
+		int mean = declassify( discloseMeanToChuck(), {Alice->Chuck;Bob->Chuck; Chuck->Chuck} to {Chuck->Chuck});
 		return mean;
 	}
-	*/
+	
 }
