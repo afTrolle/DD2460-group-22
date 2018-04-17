@@ -1,0 +1,25 @@
+package project02;
+
+public class DatingApp02 authority (Alice,Bob,Chuck) {
+	private User[Alice] aliceData;
+	private Node[Alice] aliceLikes;
+	private User[Bob] bobData;
+	private Node[Bob] bobLikes;
+	private User[Chuck] chuckData;
+	private Node[Chuck] chuckLikes;
+
+/*
+	public void updateUser(principal {_->_}P, double x, double y, String phone) {
+		//...
+	}
+
+	public int getSquaredDistance(principal {P1->P1}P1, principal {P1->P1}P2,
+			User[P1] {P1->P1}data1, User[P2]{P1->P1} data2) {
+		//...
+	} 
+
+	public Node[P] findNeighbours (principal {_->_}P) where authority (Alice, Bob, Chuck) {
+		//...
+	}
+	*/
+}

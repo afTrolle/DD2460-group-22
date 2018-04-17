@@ -1,0 +1,129 @@
+package project;
+
+public class DatingApp01 authority (Bob,Chuck,Alice) {
+	private double  {Alice->Alice}  alicePositionX;
+	private double  {Alice->Alice}  alicePositionY;
+	private String  {Alice->Alice}  alicePhone;
+	
+	private double {Bob->Bob} bobPositionX;
+	private double {Bob->Bob} bobPositionY;
+	private String {Bob->Bob} bobPhone;
+	
+	private double {Chuck->Chuck} chuckPositionX;
+	private double {Chuck->Chuck} chuckPositionY;
+	private String {Chuck->Chuck} chuckPhone;
+	
+	public void updateAlice{Alice->Alice}(double {Alice->Alice} x, double {Alice->Alice} y, String {Alice->Alice} phone) {
+		alicePositionX = x;
+		alicePositionY = y;
+		alicePhone = phone;
+	}
+	public void updateBob{Bob->Bob}(double {Bob->Bob} x, double {Bob->Bob}  y, String  {Bob->Bob} phone) {
+		bobPositionX = x;
+		bobPositionY = y;
+		bobPhone = phone;
+	}
+	public void updateChuck{Chuck->Chuck}(double {Chuck->Chuck} x, double {Chuck->Chuck}  y, String {Chuck->Chuck} phone) {
+		chuckPositionX = x;
+		chuckPositionY = y;
+		chuckPhone = phone;
+	}
+	
+	public NodeAlice {Alice->Alice} findAliceNeighbours {Alice->Alice}() where authority (Bob, Chuck) {
+		NodeAlice ret = null;
+		
+		double maxRadius = 10*10;
+		
+		double {Alice->Alice} bobDistance = declassify(
+			(alicePositionX-bobPositionX)*(alicePositionX-bobPositionX)+(alicePositionY-bobPositionY)*(alicePositionY-bobPositionY)
+			,{Alice&Bob->Alice&Bob} to {Alice->Alice}
+		);
+
+		
+		double {Alice->Alice} chuckDistance = declassify(
+			(alicePositionX-chuckPositionX)*(alicePositionX-chuckPositionX)+(alicePositionY-chuckPositionY)*(alicePositionY-chuckPositionY)
+			,{Alice&Chuck->Alice&Chuck} to {Alice->Alice}
+		);
+		
+		if (maxRadius >= bobDistance){
+			ret = NodeAlice.append(ret,new NodeAlice(Bob,bobDistance));
+		}
+		
+		if (maxRadius >= chuckDistance){
+			ret = NodeAlice.append(ret,new NodeAlice(Chuck,chuckDistance));
+		}
+		
+		return ret;
+	}
+	
+	//TBD
+	private NodeAlice {Alice->Alice} aliceLikes;
+	private NodeBob {Bob->Bob} bobLikes;
+	private NodeChuck {Chuck->Chuck} chuckLikes;
+	
+	public void addAliceLike{Alice->Alice}(principal {Alice->Alice} user)  {
+		//Assuming that distnace is already checked and that distance can be ignored.
+		aliceLikes = NodeAlice.append(aliceLikes,new NodeAlice(user,-1));
+		
+		/*
+		//Assuming that we need to check distance before add
+		
+		NodeAlice neighbours = findAliceNeighbours();
+		while (neighbours != null) {
+			if (neighbours.user == user){
+				neighbours.next = null;
+		 		aliceLikes = NodeAlice.append(aliceLikes,neighbours);
+		 		return;
+		 	}
+		  neighbours =  neighbours.next;
+		}
+		*/
+	}
+	
+	private boolean {Alice->Alice} isAliceInBobLikes {Alice->Alice}()  where authority (Bob)  {
+		boolean {Bob -> Bob} ret = false;
+		NodeBob {Bob -> Bob} current = bobLikes;
+		
+		while (current != null){
+			if (current.user == Alice){
+				ret = true;
+			} 
+			current = current.next;
+		}
+		
+		return declassify(ret, {Bob->Bob;Alice->Alice} to {Alice->Alice});
+	}
+	
+	public boolean {Alice->Alice} isAliceInChuckLikes{Alice->Alice}() where authority (Chuck) {
+		boolean {Chuck -> Chuck} ret = false;
+		NodeChuck {Chuck -> Chuck} current = chuckLikes;
+		
+		while (current != null){
+			if (current.user == Alice){
+				ret = true;
+			} 
+			current = current.next;
+		}
+		
+		return declassify(ret, {Chuck->Chuck;Alice->Alice} to {Alice->Alice});
+	}
+
+	public String{Alice->Alice} discloseNumberToAlice {Alice->Alice}(principal {Alice->Alice} user)  where authority (Bob, Chuck) {
+		boolean {Alice->Alice} ret = false;
+		NodeAlice {Alice->Alice} current = aliceLikes;
+		while (current != null){
+			if (current.user == user){
+				ret = true;
+			} 
+			current = current.next;
+		}
+
+		if (ret && user == Bob && isAliceInBobLikes()){
+			return  declassify(bobPhone, {Bob->Bob;Alice->Alice} to {Alice->Alice});
+		} else if (ret && user == Chuck && isAliceInChuckLikes()){
+			return  declassify(chuckPhone, {Chuck->Chuck;Alice->Alice} to {Alice->Alice});
+		}
+		
+	   	return null;
+	}
+}
