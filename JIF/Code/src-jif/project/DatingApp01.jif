@@ -1,0 +1,49 @@
+package project;
+
+public class DatingApp01 authority (Bob,Chuck,Dolores) {
+	private double alicePositionX;
+	private double alicePositionY;
+	private String alicePhone;
+	
+	private double bobPositionX;
+	private double bobPositionY;
+	private String bobPhone;
+	
+	private double chuckPositionX;
+	private double chuckPositionY;
+	private String chuckPhone;
+	
+	public void updateAlice(double x, double y, String Phone) {
+		...
+	}
+	public void updateBob(double x, double  y, String Phone) {
+		...
+	}
+	public void updateChuck(double x, double  y, String Phone) {
+		...
+	}
+	
+	public NodeAlice {Alice->Alice} findAliceNeighbours {Alice->Alice}() where authority (Bob, Chuck) {
+		...
+	}
+	
+	private NodeAlice aliceLikes;
+	private NodeBob bobLikes;
+	private NodeChuck chuckLikes;
+	
+	public void addAliceLike(principal user)  {
+		...
+	}
+	
+	private boolean {Alice->Alice} isAliceInBobLikes() : {Alice->Alice}  {
+		...
+	}
+	
+	public boolean {Alice->Alice} isAliceInChuckLikes() : {Alice->Alice} {
+		...
+	}
+
+	public String{Alice->Alice} discloseNumberToAlice(principal user) {
+	   ...
+	}
+}

@@ -1,0 +1,22 @@
+package project;
+
+public class  NodeAlice  {
+	public principal user; 
+	public int distance;
+	public NodeAlice next;
+
+	public NodeAlice(principal user, int distance) {
+		this.user = user;
+    	this.distance = distance;
+    	this.next = null;
+	}
+
+	public void add(NodeAlice node)  {
+		...
+	}
+	
+	// If a is null, returns b, otherwise appends b to a and returns a
+	public static NodeAlice append(NodeAlice a, NodeAlice b) {
+		...
+	} 
+}
