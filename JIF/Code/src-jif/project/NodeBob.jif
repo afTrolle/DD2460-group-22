@@ -1,0 +1,35 @@
+package project;
+
+public class NodeBob  {
+
+	public principal {Bob->Bob} user; 
+	public int {Bob->Bob} distance;
+	public NodeBob {Bob->Bob} next;
+
+	public NodeBob {Bob->Bob}(principal {Bob->Bob} user, int {Bob->Bob} distance) {
+		this.user = user;
+    	this.distance = distance;
+    	this.next = null;
+	}
+
+	public void add {Bob->Bob}(NodeBob {Bob->Bob} node)  {
+		if (next != null){
+       		try {
+        		next.add(node);
+        	} catch(NullPointerException ex){}
+		} else {
+			next = node;
+		}
+	}
+	
+	// If a is null, returns b, otherwise appends b to a and returns a
+	public static NodeBob append {Bob->Bob} (NodeBob {Bob->Bob} a, NodeBob {Bob->Bob} b) {
+		if (a == null){
+			return b;
+		} else {
+			a.add(b);
+			return a;
+		}
+	}
+
+}

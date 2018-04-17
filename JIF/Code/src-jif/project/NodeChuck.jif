@@ -1,0 +1,36 @@
+package project;
+
+public class  NodeChuck  {
+
+	public principal {Chuck->Chuck} user; 
+	public int {Chuck->Chuck} distance;
+	public NodeChuck {Chuck->Chuck} next;
+
+	public NodeChuck {Chuck->Chuck} (principal {Chuck->Chuck} user, int {Chuck->Chuck} distance) {
+		this.user = user;
+    	this.distance = distance;
+    	this.next = null;
+	}
+
+	public void add {Chuck->Chuck}(NodeChuck {Chuck->Chuck} node)  {
+		if (next != null){
+       		try {
+        		next.add(node);
+        	} catch(NullPointerException ex){}
+		} else {
+			next = node;
+		}
+	}
+	
+	// If a is null, returns b, otherwise appends b to a and returns a
+	public static NodeChuck append {Chuck->Chuck} (NodeChuck {Chuck->Chuck} a, NodeChuck {Chuck->Chuck} b) {
+		if (a == null){
+			return b;
+		} else {
+			a.add(b);
+			return a;
+		}
+	} 
+	
+}
+

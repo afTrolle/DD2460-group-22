@@ -5,15 +5,17 @@ public class  Node[principal P]  {
 	public int {P->P} distance;
 	public Node[P] {P->P} next;
 
+/*
 	public Node(principal user, int  distance) {
-		...
+		//...
 	}
 
 	public void add(Node[P]  node)  {
-		...
+		//...
 	}
 	
 	public static Node[P] append(Node[P] a, Node[P] b) {
-		...
+		//...
 	} 
+	*/
 }

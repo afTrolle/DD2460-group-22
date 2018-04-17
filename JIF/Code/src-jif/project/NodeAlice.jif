@@ -1,22 +1,33 @@
 package project;
 
 public class  NodeAlice  {
-	public principal user; 
-	public int distance;
-	public NodeAlice next;
+	public final principal {Alice->Alice} user;
+	public double {Alice->Alice} distance;
+	public NodeAlice {Alice->Alice} next;
 
-	public NodeAlice(principal user, int distance) {
+	public NodeAlice  (principal {Alice->Alice} user, double {Alice->Alice} distance) {
 		this.user = user;
     	this.distance = distance;
     	this.next = null;
 	}
 
-	public void add(NodeAlice node)  {
-		...
+	public void add {Alice->Alice} (NodeAlice {Alice->Alice} node)  {
+		if (next != null){
+       		try {
+        		next.add(node);
+        	} catch(NullPointerException ex){}
+		} else {
+			next = node;
+		}
 	}
 	
 	// If a is null, returns b, otherwise appends b to a and returns a
-	public static NodeAlice append(NodeAlice a, NodeAlice b) {
-		...
+	public static NodeAlice append  {Alice->Alice} (NodeAlice  {Alice->Alice}  a, NodeAlice  {Alice->Alice}  b) {
+		if (a == null){
+			return b;
+		} else {
+			a.add(b);
+			return a;
+		}
 	} 
 }
