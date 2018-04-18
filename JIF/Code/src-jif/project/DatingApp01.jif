@@ -4,35 +4,42 @@ public class DatingApp01 authority (Bob,Chuck,Alice) {
 	private double  {Alice->Alice}  alicePositionX;
 	private double  {Alice->Alice}  alicePositionY;
 	private String  {Alice->Alice}  alicePhone;
+	private double 	{Alice->Alice}  aliceMaxDistance;
 	
 	private double {Bob->Bob} bobPositionX;
 	private double {Bob->Bob} bobPositionY;
 	private String {Bob->Bob} bobPhone;
+	private double {Bob->Bob} bobMaxDistance;
 	
 	private double {Chuck->Chuck} chuckPositionX;
 	private double {Chuck->Chuck} chuckPositionY;
 	private String {Chuck->Chuck} chuckPhone;
+	private double {Chuck->Chuck} chuckMaxDistance;
 	
-	public void updateAlice{Alice->Alice}(double {Alice->Alice} x, double {Alice->Alice} y, String {Alice->Alice} phone) {
+	public void updateAlice{Alice->Alice}(double {Alice->Alice} x, double {Alice->Alice} y, String {Alice->Alice} phone, double {Alice->Alice} maxDistance) {
 		alicePositionX = x;
 		alicePositionY = y;
 		alicePhone = phone;
+		aliceMaxDistance = maxDistance;
+		
 	}
-	public void updateBob{Bob->Bob}(double {Bob->Bob} x, double {Bob->Bob}  y, String  {Bob->Bob} phone) {
+	public void updateBob{Bob->Bob}(double {Bob->Bob} x, double {Bob->Bob}  y, String  {Bob->Bob} phone, double {Bob->Bob} maxDistance) {
 		bobPositionX = x;
 		bobPositionY = y;
 		bobPhone = phone;
+		bobMaxDistance = maxDistance;
 	}
-	public void updateChuck{Chuck->Chuck}(double {Chuck->Chuck} x, double {Chuck->Chuck}  y, String {Chuck->Chuck} phone) {
+	public void updateChuck{Chuck->Chuck}(double {Chuck->Chuck} x, double {Chuck->Chuck}  y, String {Chuck->Chuck} phone, double {Chuck->Chuck} maxDistance) {
 		chuckPositionX = x;
 		chuckPositionY = y;
 		chuckPhone = phone;
+		chuckMaxDistance = maxDistance;
 	}
 	
-	public NodeAlice {Alice->Alice} findAliceNeighbours {Alice->Alice}() where authority (Bob, Chuck) {
+	public NodeAlice {Alice->Alice} findAliceNeighbours {Alice->Alice}(double {Alice->Alice} aliceMaxDistance) where authority (Bob, Chuck) {
 		NodeAlice ret = null;
 		
-		double maxRadius = 10*10;
+		
 		
 		double {Alice->Alice} bobDistance = declassify(
 			(alicePositionX-bobPositionX)*(alicePositionX-bobPositionX)+(alicePositionY-bobPositionY)*(alicePositionY-bobPositionY)
@@ -45,12 +52,20 @@ public class DatingApp01 authority (Bob,Chuck,Alice) {
 			,{Alice&Chuck->Alice&Chuck} to {Alice->Alice}
 		);
 		
-		if (maxRadius >= bobDistance){
-			ret = NodeAlice.append(ret,new NodeAlice(Bob,bobDistance));
+		if (aliceMaxDistance >= bobDistance){
+			boolean bobRange = declassify(aliceMaxDistance >= bobMaxDistance, {Alice&Bob->Alice&Bob} to {Alice->Alice});
+			if(bobRange){
+				ret = NodeAlice.append(ret,new NodeAlice(Bob,bobDistance));
+			}
+			
+			 
 		}
 		
-		if (maxRadius >= chuckDistance){
-			ret = NodeAlice.append(ret,new NodeAlice(Chuck,chuckDistance));
+		if (aliceMaxDistance >= chuckDistance){
+			boolean chuckRange = declassify(aliceMaxDistance >= chuckMaxDistance, {Alice&Chuck->Alice&Chuck} to {Alice->Alice});
+			if(chuckRange){ 
+				ret = NodeAlice.append(ret,new NodeAlice(Chuck,chuckDistance));
+			}
 		}
 		
 		return ret;

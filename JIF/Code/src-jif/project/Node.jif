@@ -1,15 +1,16 @@
 package project02;
 
 public class  Node[principal P]  {
-	public principal {P->P}user; 
+	public final principal {P->P}user; 
 	public int {P->P} distance;
 	public Node[P] {P->P} next;
 
-/*
-	public Node(principal user, int  distance) {
-		//...
-	}
 
+	public Node(principal {P->P} user, int {P->P} distance) {
+		this.user = user; 
+		this.distance = distance;
+	}
+/*
 	public void add(Node[P]  node)  {
 		//...
 	}
