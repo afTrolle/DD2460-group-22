@@ -1,25 +1,65 @@
 package project02;
 
 public class DatingApp02 authority (Alice,Bob,Chuck) {
-	private User[Alice] aliceData;
-	private Node[Alice] aliceLikes;
-	private User[Bob] bobData;
-	private Node[Bob] bobLikes;
-	private User[Chuck] chuckData;
-	private Node[Chuck] chuckLikes;
+	private User[Alice] {Alice->Alice} aliceData;
+	private Node[Alice] {Alice->Alice} aliceLikes;
+	private User[Bob] {Bob->Bob} bobData;
+	private Node[Bob] {Bob->Bob} bobLikes;
+	private User[Chuck] {Chuck->Chuck} chuckData;
+	private Node[Chuck] {Chuck->Chuck} chuckLikes;
 
 /*
-	public void updateUser(principal {_->_}P, double x, double y, String phone) {
-		//...
+	public void updateUser(principal {P->P}P, double {P->P} x, double {P->P} y, String {P->P} phone) {
+		
+		positionX = x;
+		positionY = y;
+		phone = phone;
 	}
-
+*/
+/*
 	public int getSquaredDistance(principal {P1->P1}P1, principal {P1->P1}P2,
 			User[P1] {P1->P1}data1, User[P2]{P1->P1} data2) {
 		//...
 	} 
-
-	public Node[P] findNeighbours (principal {_->_}P) where authority (Alice, Bob, Chuck) {
-		//...
+*/
+	public Node[P] {P->P} findNeighbours {P->P}(principal {P->P} P) where authority (Alice, Bob, Chuck) {
+		
+		
+		 
+		Node[P] ret = null;
+	    User[P] {P->P} pData;
+		
+		if (P == Alice){
+		try{
+			double {P->P} aliceDistance = declassify ((aliceData.positionX-chuckData.positionX)*(aliceData.positionX-chuckData.positionX)+(aliceData.positionY-chuckData.positionY)*(aliceData.positionY-chuckData.positionY), {Alice&Chuck->Alice&Chuck} to {P->P});
+		}catch (Exception e) {
+			return null;
+		}
+		
+		}
+		
+		if (P == Bob){
+		try{
+			double {P->P} aliceDistance = declassify ((aliceData.positionX-chuckData.positionX)*(aliceData.positionX-chuckData.positionX)+(aliceData.positionY-chuckData.positionY)*(aliceData.positionY-chuckData.positionY), {Alice&Chuck->Alice&Chuck} to {P->P});
+		}catch (Exception e) {
+			return null;
+		}
+		
+		}
+		
+		if (P == Chuck){
+		
+		
+		try{
+			double {P->P} aliceDistance = declassify ((aliceData.positionX-chuckData.positionX)*(aliceData.positionX-chuckData.positionX)+(aliceData.positionY-chuckData.positionY)*(aliceData.positionY-chuckData.positionY), {Alice&Chuck->Alice&Chuck} to {P->P});
+		}catch (Exception e) {
+			return null;
+		}
+			
+		}
+		return ret;
+		
+			
 	}
-	*/
+	
 }

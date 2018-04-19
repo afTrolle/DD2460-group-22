@@ -9,14 +9,26 @@ public class  Node[principal P]  {
 	public Node(principal {P->P} user, int {P->P} distance) {
 		this.user = user; 
 		this.distance = distance;
+		this.next = null;
 	}
-/*
-	public void add(Node[P]  node)  {
-		//...
+
+	public void add {P->P} (Node[P]{P->P}  node)  {
+		if (next != null){
+       		try {
+        		next.add(node);
+        	} catch(NullPointerException ex){}
+		} else {
+			next = node;
+		}
 	}
-	
-	public static Node[P] append(Node[P] a, Node[P] b) {
-		//...
+
+	public static Node[P] append {P->P} (Node[P]{P->P} a, Node[P] {P->P} b) {
+		if (a == null){
+			return b;
+		} else {
+			a.add(b);
+			return a;
+		}
 	} 
-	*/
+	
 }
