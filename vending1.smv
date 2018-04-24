@@ -1,0 +1,60 @@
+MODULE main
+VAR
+  choice:  boolean;
+  payment: boolean;
+  acc_payment: boolean;
+
+/-- The number of items can be an integer in the range 0 to 5 --/
+
+  n_items: 0..5;
+  state:   { ready, expect_payment, dispense_item };
+
+ASSIGN
+  init (state) := ready;
+  next (state) := case
+/-- If the number of items are equal to zero then we do not enter the expect payment phase (no check for us entering a negative amount but it shouldn't be reached.) --/
+
+		    state = ready          & choice & n_items > 0:  expect_payment;
+		    state = expect_payment & acc_payment: dispense_item;
+
+/-- We added a check so that you cannot go back to the ready state unless payment and choice is false, hence removing the original error with payments being accepted while choice being false. --/
+
+		    state = expect_payment & !choice & !payment: ready;
+		    state = dispense_item:	      ready;
+		    TRUE:                             state;
+  esac;
+/-- We initialize the number of items to 5 --/
+  init (n_items) := 5;
+  next(n_items) := case
+
+/-- if the state is in dispense_item and the number of items is higher than 0 we subtract 1 from number of items. --/
+			state = dispense_item & n_items > 0: n_items - 1;
+			TRUE: n_items;
+
+  esac;
+			
+
+  init (acc_payment) := FALSE;
+  next (acc_payment) := (state = expect_payment & payment);
+
+DEFINE
+  release_item := (state = dispense_item);
+  
+
+LTLSPEC
+  G(acc_payment -> F release_item);
+
+/-- We don't allow the number of items to be lower than 0 --/
+
+LTLSPEC
+  G(n_items >= 0);
+
+/-- We do not accept payment if there is no items in the machine --/
+
+LTLSPEC
+  G(acc_payment -> n_items > 0);
+
+/-- We make sure the number of items is changed when we dispense an item --/
+
+LTLSPEC
+  G(release_item -> n_items != next(n_items));
