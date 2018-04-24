@@ -1,0 +1,86 @@
+MODULE main
+VAR
+  choice:  boolean;
+  payment: boolean;
+  acc_payment: boolean;
+  state:   { ready, expect_payment, dispense_item };
+  n_items: 0..10;
+  
+ASSIGN
+
+
+	
+  init (acc_payment) := FALSE;
+  next (acc_payment) := (state = expect_payment & choice  & payment & n_items > 0 );
+  
+
+
+  
+  init (state) := ready;
+  next (state) := case
+		    state = ready          & choice:  expect_payment;
+		    state = expect_payment & acc_payment: dispense_item;
+		    state = expect_payment & !choice & !payment: ready;
+		    state = dispense_item:	      ready;
+		    TRUE: state;
+  esac;
+  
+  next (n_items) := case
+			dispense_item = state & n_items > 0: n_items - 1;
+			TRUE: n_items;
+  esac;
+
+DEFINE
+  release_item := (state = dispense_item);
+
+LTLSPEC G(acc_payment -> F release_item);
+
+
+--ctl specs
+
+-- Number of items should always be ≥0.
+SPEC AG(n_items >= 0);
+
+-- Payment should only be accepted if number of items > 0.
+LTLSPEC G( n_items = 0 -> F !acc_payment );
+
+-- If an item is dispensed, the counter of items is always reduced by 1.
+SPEC AG(n_items = 1 & state = dispense_item -> AF (n_items = 0));
+
+  
+  
+  
+/--
+ First Error meesage
+
+ LTL spec G (acc_payment ->  F release_item)  means that if we accept the payment we will evuantly release an item. 
+ If we cancled 
+ In State 1.3  we cancled choice but did the payment at the same time.
+ So in State 1.4 we Accept payment and  return too ready state which is incorrect since no item was realsed.
+ 
+-- specification  G (acc_payment ->  F release_item)  is false
+-- as demonstrated by the following execution sequence
+Trace Description: LTL Counterexample
+Trace Type: Counterexample
+  -> State: 1.1 <-
+    choice = FALSE
+    payment = FALSE
+    acc_payment = FALSE
+    state = ready
+    release_item = FALSE
+  -> State: 1.2 <-
+    choice = TRUE
+  -> State: 1.3 <-
+    choice = FALSE
+    payment = TRUE
+    state = expect_payment
+  -> State: 1.4 <-
+    payment = FALSE
+    acc_payment = TRUE
+    state = ready
+  -- Loop starts here
+  -> State: 1.5 <-
+    acc_payment = FALSE
+  -> State: 1.6 <-
+  
+--/

@@ -1,0 +1,41 @@
+MODULE main
+VAR
+  location : array 0..3 of boolean;
+  traveling: array 0..3 of boolean;
+  torch: boolean;
+  time: 0..100;
+
+ASSIGN
+  init (location[0]) := FALSE;
+  init (location[1]) := FALSE;
+  init (location[2]) := FALSE;
+  init (location[3]) := FALSE;
+  init (torch) := FALSE;
+  init (time) := 0;
+
+  next (torch) := case
+    -- rule: torch can only move if carried
+  esac;
+
+  next (location[0]) := case
+    -- rule: location changes if "0" is traveling
+  esac;
+
+  next (location[1]) := case
+    -- copy rule from above and change index
+  esac;
+
+  next (location[2]) := case
+  esac;
+
+  next (location[3]) := case
+  esac;
+
+  next(time) := case
+    time > 90: 90;
+  esac;
+
+LTLSPEC
+  !( (-- rule for valid transitions --))
+     U (-- all travelers must reach goal -- &
+        time <= --MIN--));
