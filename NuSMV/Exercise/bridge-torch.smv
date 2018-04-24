@@ -13,29 +13,61 @@ ASSIGN
   init (torch) := FALSE;
   init (time) := 0;
 
+  --TBD
+  init (traveling[0]) := FALSE;
+  init (traveling[1]) := FALSE;
+  init (traveling[2]) := FALSE;
+  init (traveling[3]) := FALSE;
+  
   next (torch) := case
     -- rule: torch can only move if carried
+	count(traveling[0],traveling[1],traveling[2],traveling[3]) > 0 : !torch; 
+	TRUE: torch;
   esac;
 
   next (location[0]) := case
     -- rule: location changes if "0" is traveling
+	traveling[0]:  !location[0];
+	TRUE: location[0];
   esac;
 
   next (location[1]) := case
-    -- copy rule from above and change index
+ 	traveling[1]:  !location[1];
+	TRUE: location[1];
   esac;
 
   next (location[2]) := case
+	traveling[2]:  !location[2];
+	TRUE: location[2];
   esac;
 
   next (location[3]) := case
+	traveling[3]:  !location[3];
+	TRUE: location[3];
   esac;
 
+  
   next(time) := case
     time > 90: 90;
+	traveling[3]  : time+10;
+	traveling[2] & !traveling[3] : time+5;
+	traveling[1] & !traveling[2] & !traveling[3] : time+2;
+	traveling[0] & !traveling[1] & !traveling[2] & !traveling[3]: time+1;
+	
+	TRUE: time;
   esac;
-
-LTLSPEC
-  !( (-- rule for valid transitions --))
-     U (-- all travelers must reach goal -- &
-        time <= --MIN--));
+  
+  
+TRANS
+  (torch = location[0] & next(traveling[0]) = !location[0] ) |
+  (torch = cabbage & next(carry) = c) |
+  (torch = wolf & next(carry) = w);
+  
+  
+  -- count(location[0],location[1],location[2],location[3]) <= 10
+  -- 0 < count(traveling[0],traveling[1],traveling[2],traveling[3]) <= 2
+-- LTLSPEC !( (-- rule for valid transitions --)) U ( F (location[0]&location[1]&location[2]&location[3]) & time <= 90));
+  
+ 
+  LTLSPEC F (location[0]&location[1]&location[2]&location[3] & (time <= 90));
+  LTLSPEC G (count(traveling[0],traveling[1],traveling[2],traveling[3]) <= 2);
