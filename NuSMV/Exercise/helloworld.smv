@@ -25,5 +25,5 @@ ASSIGN
 	state = end : time+1;
   esac;
   
-LTLSPEC
-  !( ( nextbool != next(nextbool)) U ( state = end & time <= 3));
+-- LTLSPEC !( ( nextbool = FALSE ) U ( state = end & time <= 9));
+LTLSPEC !( ( nextbool = TRUE ) U ( state = end & time <= 9));
