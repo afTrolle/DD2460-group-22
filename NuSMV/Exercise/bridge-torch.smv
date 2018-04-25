@@ -86,3 +86,75 @@ ASSIGN
 LTLSPEC !( (travelcount <= 2 ) U G ( finish & (time <= 17) ) )
 
 
+/-- 
+
+-- specification !(travelcount <= 2 U ( G (finish & time <= 17)))  is false
+-- as demonstrated by the following execution sequence
+Trace Description: LTL Counterexample 
+Trace Type: Counterexample 
+  -> State: 1.1 <-
+    location[0] = FALSE
+    location[1] = FALSE
+    location[2] = FALSE
+    location[3] = FALSE
+    traveling[0] = TRUE
+    traveling[1] = TRUE
+    traveling[2] = FALSE
+    traveling[3] = FALSE
+    torch = FALSE
+    time = 0
+    finish = FALSE
+    travelcount = 2
+  -> State: 1.2 <-
+    location[0] = TRUE
+    location[1] = TRUE
+    traveling[0] = FALSE
+    torch = TRUE
+    time = 2
+    travelcount = 1
+  -> State: 1.3 <-
+    location[1] = FALSE
+    traveling[1] = FALSE
+    torch = FALSE
+    time = 4
+    travelcount = 0
+  -> State: 1.4 <-
+    traveling[2] = TRUE
+    traveling[3] = TRUE
+    travelcount = 2
+  -> State: 1.5 <-
+    location[2] = TRUE
+    location[3] = TRUE
+    traveling[2] = FALSE
+    traveling[3] = FALSE
+    torch = TRUE
+    time = 14
+    travelcount = 0
+  -> State: 1.6 <-
+    traveling[0] = TRUE
+    travelcount = 1
+  -> State: 1.7 <-
+    location[0] = FALSE
+    traveling[0] = FALSE
+    torch = FALSE
+    time = 15
+    travelcount = 0
+  -> State: 1.8 <-
+    traveling[0] = TRUE
+    traveling[1] = TRUE
+    travelcount = 2
+  -- Loop starts here
+  -> State: 1.9 <-
+    location[0] = TRUE
+    location[1] = TRUE
+    traveling[0] = FALSE
+    traveling[1] = FALSE
+    torch = TRUE
+    time = 17
+    finish = TRUE
+    travelcount = 0
+  -- Loop starts here
+  -> State: 1.10 <-
+  -> State: 1.11 <-
+  
+--/
