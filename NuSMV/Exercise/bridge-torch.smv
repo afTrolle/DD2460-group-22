@@ -1,3 +1,4 @@
+
 MODULE main
 VAR
   location : array 0..3 of boolean;
@@ -5,6 +6,12 @@ VAR
   torch: boolean;
   time: 0..100;
 
+-- Two variables has been added to get a better overview and more convient LTLSPEC
+DEFINE
+  travelcount := count(traveling[0],traveling[1],traveling[2],traveling[3]);
+  finish := location[0] & location[1] & location[2] & location[3] & torch;
+
+-- All people and the torch starts at the same side
 ASSIGN
   init (location[0]) := FALSE;
   init (location[1]) := FALSE;
@@ -13,61 +20,69 @@ ASSIGN
   init (torch) := FALSE;
   init (time) := 0;
 
-  --TBD
-  init (traveling[0]) := FALSE;
-  init (traveling[1]) := FALSE;
-  init (traveling[2]) := FALSE;
-  init (traveling[3]) := FALSE;
-  
-  next (torch) := case
-    -- rule: torch can only move if carried
-	count(traveling[0],traveling[1],traveling[2],traveling[3]) > 0 : !torch; 
-	TRUE: torch;
-  esac;
-
+-- A person can only move when travling
   next (location[0]) := case
-    -- rule: location changes if "0" is traveling
-	traveling[0]:  !location[0];
-	TRUE: location[0];
+    traveling[0]: !location[0];
+    TRUE: location[0];
   esac;
 
   next (location[1]) := case
- 	traveling[1]:  !location[1];
-	TRUE: location[1];
+    traveling[1]: !location[1];
+    TRUE: location[1];
   esac;
 
   next (location[2]) := case
-	traveling[2]:  !location[2];
-	TRUE: location[2];
+    traveling[2]: !location[2];
+    TRUE: location[2];
   esac;
 
   next (location[3]) := case
-	traveling[3]:  !location[3];
-	TRUE: location[3];
+    traveling[3]: !location[3];
+    TRUE: location[3];
   esac;
 
-  
-  next(time) := case
-    time > 90: 90;
-	traveling[3]  : time+10;
-	traveling[2] & !traveling[3] : time+5;
-	traveling[1] & !traveling[2] & !traveling[3] : time+2;
-	traveling[0] & !traveling[1] & !traveling[2] & !traveling[3]: time+1;
-	
-	TRUE: time;
+-- When someone is moving, then the most carry the torch
+  next (torch) := case
+    finish : torch;
+    travelcount > 0 : !torch;
+    TRUE: torch;
   esac;
   
-  
-TRANS
-  (torch = location[0] & next(traveling[0]) = !location[0] ) |
-  (torch = cabbage & next(carry) = c) |
-  (torch = wolf & next(carry) = w);
-  
-  
-  -- count(location[0],location[1],location[2],location[3]) <= 10
-  -- 0 < count(traveling[0],traveling[1],traveling[2],traveling[3]) <= 2
--- LTLSPEC !( (-- rule for valid transitions --)) U ( F (location[0]&location[1]&location[2]&location[3]) & time <= 90));
-  
- 
-  LTLSPEC F (location[0]&location[1]&location[2]&location[3] & (time <= 90));
-  LTLSPEC G (count(traveling[0],traveling[1],traveling[2],traveling[3]) <= 2);
+/-- 
+--  A person can only travel when the torch and the person is on the same side
+--  Also travelcount has to be max 2 (Max 2 persons can travel at the same time)
+--/ 
+  next (traveling[0]) := case
+    torch = location[0] & travelcount <= 2 : {TRUE, FALSE};
+    TRUE: traveling[0];
+  esac;
+
+  next (traveling[1]) := case
+    torch = location[1] & travelcount <= 2 : {TRUE, FALSE};
+    TRUE: traveling[1];
+  esac;
+
+  next (traveling[2]) := case
+    torch = location[2] & travelcount <= 2 : {TRUE, FALSE};
+    TRUE: traveling[2];
+  esac;
+
+  next (traveling[3]) := case
+    torch = location[3] & travelcount <= 2 : {TRUE, FALSE};
+    TRUE: traveling[3];
+  esac;
+
+-- Add time when people is travling. 
+
+  next(time) := case
+    time >30: 30;
+    traveling[3] : time + 10;
+    traveling[2] : time + 5;
+    traveling[1] : time + 2;
+    traveling[0] : time + 1;
+    TRUE: time;
+  esac;
+
+LTLSPEC !( (travelcount <= 2 ) U G ( finish & (time <= 17) ) )
+
+
