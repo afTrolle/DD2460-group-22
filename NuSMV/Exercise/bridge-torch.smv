@@ -1,0 +1,160 @@
+
+MODULE main
+VAR
+  location : array 0..3 of boolean;
+  traveling: array 0..3 of boolean;
+  torch: boolean;
+  time: 0..100;
+
+-- Two variables has been added to get a better overview and more convient LTLSPEC
+DEFINE
+  travelcount := count(traveling[0],traveling[1],traveling[2],traveling[3]);
+  finish := location[0] & location[1] & location[2] & location[3] & torch;
+
+-- All people and the torch starts at the same side
+ASSIGN
+  init (location[0]) := FALSE;
+  init (location[1]) := FALSE;
+  init (location[2]) := FALSE;
+  init (location[3]) := FALSE;
+  init (torch) := FALSE;
+  init (time) := 0;
+
+-- A person can only move when travling
+  next (location[0]) := case
+    traveling[0]: !location[0];
+    TRUE: location[0];
+  esac;
+
+  next (location[1]) := case
+    traveling[1]: !location[1];
+    TRUE: location[1];
+  esac;
+
+  next (location[2]) := case
+    traveling[2]: !location[2];
+    TRUE: location[2];
+  esac;
+
+  next (location[3]) := case
+    traveling[3]: !location[3];
+    TRUE: location[3];
+  esac;
+
+-- When someone is moving, then the most carry the torch
+  next (torch) := case
+    finish : torch;
+    travelcount > 0 : !torch;
+    TRUE: torch;
+  esac;
+  
+/-- 
+--  A person can only travel when the torch and the person is on the same side
+--  Also travelcount has to be max 2 (Max 2 persons can travel at the same time)
+--/ 
+  next (traveling[0]) := case
+    torch = location[0] & travelcount <= 2 : {TRUE, FALSE};
+    TRUE: traveling[0];
+  esac;
+
+  next (traveling[1]) := case
+    torch = location[1] & travelcount <= 2 : {TRUE, FALSE};
+    TRUE: traveling[1];
+  esac;
+
+  next (traveling[2]) := case
+    torch = location[2] & travelcount <= 2 : {TRUE, FALSE};
+    TRUE: traveling[2];
+  esac;
+
+  next (traveling[3]) := case
+    torch = location[3] & travelcount <= 2 : {TRUE, FALSE};
+    TRUE: traveling[3];
+  esac;
+
+-- Add time when people is travling. 
+
+  next(time) := case
+    time >30: 30;
+    traveling[3] : time + 10;
+    traveling[2] : time + 5;
+    traveling[1] : time + 2;
+    traveling[0] : time + 1;
+    TRUE: time;
+  esac;
+
+LTLSPEC !( (travelcount <= 2 ) U G ( finish & (time <= 17) ) )
+
+
+/-- 
+
+-- specification !(travelcount <= 2 U ( G (finish & time <= 17)))  is false
+-- as demonstrated by the following execution sequence
+Trace Description: LTL Counterexample 
+Trace Type: Counterexample 
+  -> State: 1.1 <-
+    location[0] = FALSE
+    location[1] = FALSE
+    location[2] = FALSE
+    location[3] = FALSE
+    traveling[0] = TRUE
+    traveling[1] = TRUE
+    traveling[2] = FALSE
+    traveling[3] = FALSE
+    torch = FALSE
+    time = 0
+    finish = FALSE
+    travelcount = 2
+  -> State: 1.2 <-
+    location[0] = TRUE
+    location[1] = TRUE
+    traveling[0] = FALSE
+    torch = TRUE
+    time = 2
+    travelcount = 1
+  -> State: 1.3 <-
+    location[1] = FALSE
+    traveling[1] = FALSE
+    torch = FALSE
+    time = 4
+    travelcount = 0
+  -> State: 1.4 <-
+    traveling[2] = TRUE
+    traveling[3] = TRUE
+    travelcount = 2
+  -> State: 1.5 <-
+    location[2] = TRUE
+    location[3] = TRUE
+    traveling[2] = FALSE
+    traveling[3] = FALSE
+    torch = TRUE
+    time = 14
+    travelcount = 0
+  -> State: 1.6 <-
+    traveling[0] = TRUE
+    travelcount = 1
+  -> State: 1.7 <-
+    location[0] = FALSE
+    traveling[0] = FALSE
+    torch = FALSE
+    time = 15
+    travelcount = 0
+  -> State: 1.8 <-
+    traveling[0] = TRUE
+    traveling[1] = TRUE
+    travelcount = 2
+  -- Loop starts here
+  -> State: 1.9 <-
+    location[0] = TRUE
+    location[1] = TRUE
+    traveling[0] = FALSE
+    traveling[1] = FALSE
+    torch = TRUE
+    time = 17
+    finish = TRUE
+    travelcount = 0
+  -- Loop starts here
+  -> State: 1.10 <-
+  -> State: 1.11 <-
+  
+--/

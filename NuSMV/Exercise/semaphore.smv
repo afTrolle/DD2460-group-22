@@ -57,3 +57,40 @@ Instead of just take paths where a process is running, it should take a path
 where the process enters a critical state. We also implemented the changes
 so NuSMV process implementation is not used.
 --/
+
+-- specification AG !(proc1.state = critical & proc2.state = critical)  is true
+-- specification AG (proc1.state = entering -> AF proc1.state = critical)  is false
+-- as demonstrated by the following execution sequence
+/--
+Trace Description: CTL Counterexample 
+Trace Type: Counterexample 
+  -> State: 1.1 <-
+    semaphore = FALSE
+    running = 0
+    proc1.state = idle
+    proc2.state = idle
+  -> State: 1.2 <-
+    proc1.state = entering
+  -- Loop starts here
+  -> State: 1.3 <-
+    running = 1
+  -> State: 1.4 <-
+-- specification AG (proc2.state = entering -> AF proc2.state = critical)  is false
+-- as demonstrated by the following execution sequence
+Trace Description: CTL Counterexample 
+Trace Type: Counterexample 
+  -> State: 2.1 <-
+    semaphore = FALSE
+    running = 0
+    proc1.state = idle
+    proc2.state = idle
+  -> State: 2.2 <-
+    running = 1
+    proc2.state = entering
+  -- Loop starts here
+  -> State: 2.3 <-
+    running = 0
+  -> State: 2.4 <-
+
+  In the first example we see that process1 is entering but then the program never grants him the ability to reach critical state by only running the second process. The other example is the same but with the roles reversed.
+  --/

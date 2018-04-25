@@ -1,0 +1,29 @@
+MODULE main
+VAR
+  
+  state: { first, second, third , end};
+  nextbool: boolean;
+  time: 0..100;
+  
+ASSIGN
+  init (time) := 0;
+  init (state) := first;
+  
+  next (state) := case
+      state = first & nextbool : second;
+	  state = first & !nextbool : third;
+	  state = third  : end;
+	  state = second  : end;
+	  state = end  : first;
+  esac;
+  
+  next (time) := case
+	time > 15: 15;
+	state = first : time+2;
+	state = second : time+10;
+	state = third : time+2;
+	state = end : time+1;
+  esac;
+  
+-- LTLSPEC !( ( nextbool = FALSE ) U ( state = end & time <= 9));
+LTLSPEC !( ( nextbool = TRUE ) U ( state = end & time <= 9));
