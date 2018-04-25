@@ -61,6 +61,7 @@ so NuSMV process implementation is not used.
 -- specification AG !(proc1.state = critical & proc2.state = critical)  is true
 -- specification AG (proc1.state = entering -> AF proc1.state = critical)  is false
 -- as demonstrated by the following execution sequence
+/--
 Trace Description: CTL Counterexample 
 Trace Type: Counterexample 
   -> State: 1.1 <-
@@ -92,3 +93,4 @@ Trace Type: Counterexample
   -> State: 2.4 <-
 
   In the first example we see that process1 is entering but then the program never grants him the ability to reach critical state by only running the second process. The other example is the same but with the roles reversed.
+  --/
