@@ -1,31 +1,94 @@
-MODULE user(semaphore)
+MODULE user(semaphore, active)
 VAR
   state : { idle, entering, critical, exiting };
 ASSIGN
   init(state) := idle;
+  -- state transitions only fire when active
   next(state) := case
-    state = idle : { idle, entering };
-    state = entering & !semaphore : critical;
-    state = critical : { critical, exiting };
-    state = exiting : idle;
+    active & state = idle : { idle, entering };
+    active & state = entering & !semaphore : critical;
+    active & state = critical : { critical, exiting };
+    active & state = exiting : idle;
     TRUE : state;
   esac;
-  next(semaphore) := case
-    state = entering: TRUE;
-    state = exiting : FALSE;
-    TRUE : semaphore;
-  esac;
-FAIRNESS
-  running
 
 MODULE main
 VAR
   semaphore : boolean;
-  proc1 : process user(semaphore);
-  proc2 : process user(semaphore);
+  running: 0..1;
+  -- If the process will be running in the next state, it receives an active variable that is TRUE
+  proc1: user(semaphore, next(running) = 0);
+  proc2: user(semaphore, next(running) = 1);
 ASSIGN
   init(semaphore) := FALSE;
+
+  -- The semaphore will only shift if active process have the specified state
+  next(semaphore) := case
+    next(running) = 0 & proc1.state = entering: TRUE;
+    next(running) = 0 & proc1.state = exiting : FALSE;
+    next(running) = 1 & proc2.state = exiting : FALSE;
+    next(running) = 1 & proc2.state = entering: TRUE;
+    TRUE : semaphore;
+  esac;
+
+-- changed fairness to take paths where proc1 reaches critical
+FAIRNESS
+  proc1.state = critical;
+
+-- added fariness to take paths where proc2 reaches critical
+FAIRNESS
+  proc2.state = critical;
+
 
 SPEC AG !(proc1.state = critical & proc2.state = critical); -- safety
 
 SPEC AG (proc1.state = entering -> AF proc1.state = critical); -- liveness
+
+-- added second liveness specification for process 2.
+SPEC AG (proc2.state = entering -> AF proc2.state = critical);
+
+/--
+-- specification AG !(proc1.state = critical & proc2.state = critical)  is true
+-- specification AG (proc1.state = entering -> AF proc1.state = critical)  is true
+-- specification AG (proc2.state = entering -> AF proc2.state = critical)  is true
+All specification are true in the error trace. The original program with
+the livelock error could be solved by changing the FAIRNESS expression. 
+Instead of just take paths where a process is running, it should take a path 
+where the process enters a critical state. We also implemented the changes
+so NuSMV process implementation is not used.
+--/
+
+-- specification AG !(proc1.state = critical & proc2.state = critical)  is true
+-- specification AG (proc1.state = entering -> AF proc1.state = critical)  is false
+-- as demonstrated by the following execution sequence
+Trace Description: CTL Counterexample 
+Trace Type: Counterexample 
+  -> State: 1.1 <-
+    semaphore = FALSE
+    running = 0
+    proc1.state = idle
+    proc2.state = idle
+  -> State: 1.2 <-
+    proc1.state = entering
+  -- Loop starts here
+  -> State: 1.3 <-
+    running = 1
+  -> State: 1.4 <-
+-- specification AG (proc2.state = entering -> AF proc2.state = critical)  is false
+-- as demonstrated by the following execution sequence
+Trace Description: CTL Counterexample 
+Trace Type: Counterexample 
+  -> State: 2.1 <-
+    semaphore = FALSE
+    running = 0
+    proc1.state = idle
+    proc2.state = idle
+  -> State: 2.2 <-
+    running = 1
+    proc2.state = entering
+  -- Loop starts here
+  -> State: 2.3 <-
+    running = 0
+  -> State: 2.4 <-
+
+  In the first example we see that process1 is entering but then the program never grants him the ability to reach critical state by only running the second process. The other example is the same but with the roles reversed.
