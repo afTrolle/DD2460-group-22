@@ -30,6 +30,7 @@ MODULE Button(reset)
 
   -- REQ: The controller must not reset a button that is not pressed.
 
+SPEC AG(!pressed -> !reset);
 
 
 ---------------------------------------------------------------------------
@@ -40,6 +41,7 @@ MODULE Button(reset)
 -- engine that has a direction of motion, that can be either stopped, up
 -- or down.
 
+
 MODULE Cabin(direction)
   DEFINE N:=3;
 
@@ -49,19 +51,17 @@ MODULE Cabin(direction)
   ASSIGN
     next(floor) :=
       case
-        next(direction) = stop : floor;
-        next(direction) = up   : case
-				   ???
-                                 esac;
-        next(direction) = down : case
-				   ???
-                                 esac;
+        -- next(direction) = stop : floor;
+        next(direction) = up  & floor < N  : floor + 1;
+        next(direction) = down & floor > 1 :  floor - 1;
+        TRUE: floor;
       esac;
+      
 
   -- REQ: The cabin can move up only if the floor is not N.
-
+ LTLSPEC G( X(direction) = up  -> floor < N )
   -- REQ: The cabin can move down only if the floor is not 1.
-
+ LTLSPEC G( X(direction) = down  -> floor > 1 )
 
 
 ---------------------------------------------------------------------------
@@ -133,6 +133,8 @@ MODULE CTRL(floor, door, pressed_1, pressed_2, pressed_3)
   -- * If there are pending requests at different floors and the
   --   door is open, close it.
   -- * Otherwise, do not send commands to the door.
+
+ /--
   ASSIGN
     door_cmd :=
       case
@@ -149,6 +151,7 @@ MODULE CTRL(floor, door, pressed_1, pressed_2, pressed_3)
         TRUE             : direction;
       esac;
 
+--/
   -- * If the door is open, do not send move commands to the cabin.
   -- * If there is a pending request at the current floor
   --   and the cabin is moving, stop it.
@@ -157,33 +160,36 @@ MODULE CTRL(floor, door, pressed_1, pressed_2, pressed_3)
   -- * If there are pending requests at higher (lower) floors,
   --   move up (down).
   -- * Otherwise, do not send commands to the cabin.
+
+  /-- 
   ASSIGN
     init(direction) := stop;
     next(direction) :=
       case
-	???
+	--???
       esac;
 
   -- The cabin needs to stop before it can change direction.
   SPEC AG(direction = up) -> AX(direction != down)
   SPEC AG(direction = down) -> AX(direction != up)
-
+ --/
 ---------------------------------------------------------------------------
 -- MAIN                                                                  --
 ---------------------------------------------------------------------------
 
 -- The main module shows the connection between modules.
 
+
 MODULE main
   VAR
-    cabin : Cabin(ctrl.direction);
-    door  : Door(ctrl.door_cmd);
-    button_1 : Button(ctrl.reset_1);
-    button_2 : Button(ctrl.reset_2);
-    button_3 : Button(ctrl.reset_3);
-    ctrl : CTRL(cabin.floor, door.status,
-                button_1.pressed, button_2.pressed,
-                button_3.pressed);
+  --  cabin : Cabin(ctrl.direction);
+  --  door  : Door(ctrl.door_cmd);
+ --   button_1 : Button(ctrl.reset_1);
+ --   button_2 : Button(ctrl.reset_2);
+ --   button_3 : Button(ctrl.reset_3);
+   -- ctrl : CTRL(cabin.floor, door.status,
+   --             button_1.pressed, button_2.pressed,
+   --             button_3.pressed);
 
 
 
