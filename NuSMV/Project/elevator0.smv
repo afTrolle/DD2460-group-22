@@ -23,8 +23,8 @@ MODULE Button(reset)
     init(pressed) := FALSE;
     next(pressed) :=
       case
-        pressed & reset  : FALSE;
-        pressed & !reset : TRUE;
+        pressed & next(reset)  : FALSE;
+        pressed & next(!reset) : TRUE;
         !pressed         : {FALSE,TRUE};
       esac;
 
@@ -74,22 +74,26 @@ MODULE Cabin(direction)
 -- from the controller, and it responds opening, closing, or
 -- preserving the current state.
 
-MODULE Door(door_cmd)
+MODULE Door(door_cmd, sensor)
   VAR
     status : { open, closed };
 
   ASSIGN
+    init(sensor) := FALSE;
     next(status) := case
         door_cmd = open      : open;
-        door_cmd = close     : closed;
+        door_cmd = close & !sensor    : closed;
+        door_cmd = close & sensor : open;
         door_cmd = nop       : status;
       esac;
+  
 
   -- REQ: The controller can issue an open command only if the door is closed.
 SPEC AG ( door_cmd = open -> status = closed)
   -- REQ: The controller can issue a close command only if the door is open.
 SPEC AG (door_cmd = close -> status = open)
 
+LTLSPEC G (sensor = TRUE & status = open -> !(next(status) = closed))
 
 ---------------------------------------------------------------------------
 -- CONTROLLER                                                            --
@@ -100,7 +104,7 @@ SPEC AG (door_cmd = close -> status = open)
 -- status of the four buttons. It decides the controls to the engine, to
 -- the door and to the buttons.
 
-MODULE CTRL(floor, door, pressed_1, pressed_2, pressed_3)
+MODULE CTRL(floor, door, pressed_1, pressed_2, pressed_3, sensor)
   VAR
     direction : {up, down, stop};
     door_cmd : {open, close, nop};
@@ -142,7 +146,7 @@ MODULE CTRL(floor, door, pressed_1, pressed_2, pressed_3)
     
       (direction != stop) | door_cmd != nop: nop;
       pending_here & (direction = stop) & door = closed: open;
-      ( pending_down | pending_up ) & door = open: close;
+      ( pending_down | pending_up ) & door = open & !sensor: close;
       TRUE : door_cmd;
     esac;
 
@@ -193,13 +197,14 @@ MODULE main
   
     VAR
     cabin : Cabin(ctrl.direction);
-    door  : Door(ctrl.door_cmd);
+    door  : Door(ctrl.door_cmd, sensor);
     button_1 : Button(ctrl.reset_1);
     button_2 : Button(ctrl.reset_2);
     button_3 : Button(ctrl.reset_3);
+    sensor : boolean;
     ctrl : CTRL(cabin.floor, door.status,
                 button_1.pressed, button_2.pressed,
-                button_3.pressed);
+                button_3.pressed, sensor);
 
 
 ---------------------------------------------------------------------------
@@ -215,6 +220,8 @@ MODULE main
   LTLSPEC G( button_2.pressed ->  F !button_2.pressed);
   LTLSPEC G( button_3.pressed ->  F !button_3.pressed);
 
+  FAIRNESS
+    sensor = FALSE & door.status = closed;
   -- REQ: No pressed button can be reset until the cabin stops at the
   --      corresponding floor and opens the door.
   LTLSPEC G( cabin.floor = 1 & button_1.pressed & ctrl.direction = stop & door.status = open ->  ctrl.reset_1  );
@@ -224,7 +231,9 @@ MODULE main
   
   -- REQ: The cabin can move only when the door is closed.
 
+  LTLSPEC G( cabin.direction = down -> door.status = closed);
+  LTLSPEC G( cabin.direction = up -> door.status = closed);
   -- REQ: If no button is pressed, the controller must issue no commands
   --      and the cabin must be stopped.
-
+  LTLSPEC G( isNoButtonPressed = TRUE -> cabin.direction = stop & ctrl.door_cmd = nop)
 ---------------------------------------------------------------------------
