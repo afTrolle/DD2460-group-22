@@ -217,15 +217,148 @@ MODULE main
 
   -- REQ: A button must be reset as soon as the cabin stops at the
   --      corresponding floor with the door open.
-  LTLSPEC G ( cabin.direction = stop & cabin.floor = 1 & door.status = open & !isNoButtonPressed -> (ctrl.reset_1) = TRUE ) ;
-  LTLSPEC G ( cabin.direction = stop & cabin.floor = 2 & door.status = open & !isNoButtonPressed ->  (ctrl.reset_2) = TRUE ) ;
-  LTLSPEC G ( cabin.direction = stop & cabin.floor = 3 & door.status = open & !isNoButtonPressed ->  (ctrl.reset_3) = TRUE ) ;
+  LTLSPEC G ( cabin.direction = stop & cabin.floor = 1 & door.status = open & button_1.pressed  -> ctrl.reset_1 ) ;
+  LTLSPEC G ( cabin.direction = stop & cabin.floor = 2 & door.status = open & button_2.pressed  -> ctrl.reset_2 ) ;
+  LTLSPEC G ( cabin.direction = stop & cabin.floor = 3 & door.status = open & button_3.pressed  -> ctrl.reset_3 ) ;
 
   -- REQ: The cabin can move only when the door is closed.
- LTLSPEC G( cabin.direction = down -> door.status = closed);
- LTLSPEC G( cabin.direction = up -> door.status = closed);
+  LTLSPEC G( cabin.direction = down -> door.status = closed);
+  LTLSPEC G( cabin.direction = up -> door.status = closed);
   -- REQ: If no button is pressed, the controller must issue no commands
   --      and the cabin must be stopped.
- LTLSPEC G( isNoButtonPressed = TRUE -> cabin.direction = stop & ctrl.door_cmd = nop);
+  LTLSPEC G( isNoButtonPressed = TRUE -> cabin.direction = stop & ctrl.door_cmd = nop);
+
+
 
 ---------------------------------------------------------------------------
+
+
+
+/-- Validation, documentation
+
+Faulty Model
+
+We got the model to look similar by using next from reset which created some sort of locking so that the button never got pushed.
+We tought it was wierd that we didn't get and recrusive error. 
+When assign next of pressed was called we added next to try and stop the loop that we button was reset and someone presses the button so the door open and closes for infinity.
+
+MODULE Button(reset)
+  VAR
+    pressed : boolean;
+  ASSIGN
+    init(pressed) := FALSE;
+    next(pressed) :=
+      case
+        pressed & next(reset)  : FALSE;
+        pressed & next(!reset) : TRUE;
+        !pressed         : {FALSE,TRUE};
+      esac;
+
+LTLSPEC (button_3.pressed);
+
+-- specification button_3.pressed  is false
+-- as demonstrated by the following execution sequence
+Trace Description: LTL Counterexample
+Trace Type: Counterexample
+  -- Loop starts here
+  -> State: 1.1 <-
+    cabin.floor = 1
+    door.status = open
+    button_1.pressed = FALSE
+    button_2.pressed = FALSE
+    button_3.pressed = FALSE
+    sensor = FALSE
+    ctrl.direction = stop
+    ctrl.door_cmd = nop
+    ctrl.reset_1 = FALSE
+    ctrl.reset_2 = FALSE
+    ctrl.reset_3 = FALSE
+    ctrl.last_dir = up
+    isNoButtonPressed = TRUE
+    cabin.N = 3
+    ctrl.pending_down = FALSE
+    ctrl.pending_up = FALSE
+    ctrl.pending_here = FALSE
+  -> State: 1.2 <-
+
+or
+
+SPEC EX (button_3.pressed);
+
+- specification EG button_3.pressed  is false
+-- as demonstrated by the following execution sequence
+Trace Description: CTL Counterexample
+Trace Type: Counterexample
+  -> State: 1.1 <-
+    cabin.floor = 1
+    door.status = open
+    button_1.pressed = FALSE
+    button_2.pressed = FALSE
+    button_3.pressed = FALSE
+    sensor = FALSE
+    ctrl.direction = stop
+    ctrl.door_cmd = nop
+    ctrl.reset_1 = FALSE
+    ctrl.reset_2 = FALSE
+    ctrl.reset_3 = FALSE
+    ctrl.last_dir = up
+    isNoButtonPressed = TRUE
+    cabin.N = 3
+    ctrl.pending_down = FALSE
+    ctrl.pending_up = FALSE
+    ctrl.pending_here = FALSE
+
+
+Faulty property
+
+  Incorrectly wrote that if the button1 is pressed then in the next state that is should be reset always in the state after.
+  which is incorrect we see for example even when the elevator is already on that floor. That the button is clicked in state
+  -> State: 1.2 <- and turned false in -> State: 1.4 <-. 
+  It will take even more states when the elevator is on another floor so we will have to say that evenutally it will be false.
+  We just cant say exatly in which state it will be false.
+
+  LTLSPEC G (button_1.pressed -> X !button_1.pressed);
+
+-- specification  G (button_1.pressed ->  X !button_1.pressed)  is false
+-- as demonstrated by the following execution sequence
+Trace Description: LTL Counterexample
+Trace Type: Counterexample
+  -> State: 1.1 <-
+    cabin.floor = 1
+    door.status = closed
+    button_1.pressed = FALSE
+    button_2.pressed = FALSE
+    button_3.pressed = FALSE
+    ctrl.direction = stop
+    ctrl.door_cmd = nop
+    ctrl.reset_1 = FALSE
+    ctrl.reset_2 = FALSE
+    ctrl.reset_3 = FALSE
+    ctrl.last_dir = up
+    isNoButtonPressed = TRUE
+    cabin.N = 3
+    ctrl.pending_down = FALSE
+    ctrl.pending_up = FALSE
+    ctrl.pending_here = FALSE
+  -> State: 1.2 <-
+    button_1.pressed = TRUE
+    ctrl.door_cmd = open
+    isNoButtonPressed = FALSE
+    ctrl.pending_here = TRUE
+  -- Loop starts here
+  -> State: 1.3 <-
+    door.status = open
+    ctrl.door_cmd = nop
+    ctrl.reset_1 = TRUE
+  -> State: 1.4 <-
+    button_1.pressed = FALSE
+    ctrl.reset_1 = FALSE
+    isNoButtonPressed = TRUE
+    ctrl.pending_here = FALSE
+  -> State: 1.5 <-
+    button_1.pressed = TRUE
+    ctrl.reset_1 = TRUE
+    isNoButtonPressed = FALSE
+    ctrl.pending_here = TRUE
+
+--/
