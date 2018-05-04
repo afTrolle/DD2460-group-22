@@ -211,9 +211,9 @@ MODULE main
 
   -- REQ: No pressed button can be reset until the cabin stops at the
   --      corresponding floor and opens the door.
-  LTLSPEC G( cabin.floor = 1 & button_1.pressed & ctrl.direction = stop & door.status = open ->  (ctrl.reset_1)  );
-  LTLSPEC G( cabin.floor = 2 & button_2.pressed & ctrl.direction = stop & door.status = open ->  (ctrl.reset_2)  );
-  LTLSPEC G( cabin.floor = 3 & button_3.pressed & ctrl.direction = stop & door.status = open ->  (ctrl.reset_3)  );
+  LTLSPEC G( ctrl.reset_1 -> cabin.floor = 1 & button_1.pressed & ctrl.direction = stop & door.status = open );
+  LTLSPEC G( ctrl.reset_2 -> cabin.floor = 2 & button_2.pressed & ctrl.direction = stop & door.status = open );
+  LTLSPEC G( ctrl.reset_3 -> cabin.floor = 3 & button_3.pressed & ctrl.direction = stop & door.status = open );
 
   -- REQ: A button must be reset as soon as the cabin stops at the
   --      corresponding floor with the door open.
