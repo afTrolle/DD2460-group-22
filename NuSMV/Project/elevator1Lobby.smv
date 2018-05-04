@@ -232,6 +232,7 @@ MODULE main
   --      and the cabin must be stopped.
 LTLSPEC G( isNoButtonPressed = TRUE & cabin.floor = 1 & door.status = open -> cabin.direction = stop & ctrl.door_cmd = nop);
 
+  -- REQ when no button is pressed the elevator is supposed to return to the first floor.
 LTLSPEC G( isNoButtonPressed & cabin.floor = 2 & X isNoButtonPressed -> X cabin.floor = 1 );
 LTLSPEC G( isNoButtonPressed & cabin.floor = 3 & X isNoButtonPressed -> X cabin.floor = 2 );
 ---------------------------------------------------------------------------
@@ -257,10 +258,9 @@ Also had to change the LTL spec
 To
  LTLSPEC G( isNoButtonPressed = TRUE & cabin.floor = 1 & door.status = open -> cabin.direction = stop & ctrl.door_cmd = nop);
 
-Also adding that we should try to reach 
-so if we are on floor 2 and no one presses a button in the next state we floors next state will be a level lower.
-LTLSPEC ( isNoButtonPressed & cabin.floor = 2 & X !button_2.pressed -> X cabin.floor = 1 );
-LTLSPEC ( isNoButtonPressed & cabin.floor = 3 & X !button_3.pressed -> X cabin.floor = 2 );
+As long as no button is pressed we should try to move towards floor 1. 
+LTLSPEC G( isNoButtonPressed & cabin.floor = 2 & X isNoButtonPressed -> X cabin.floor = 1 );
+LTLSPEC G( isNoButtonPressed & cabin.floor = 3 & X isNoButtonPressed -> X cabin.floor = 2 );
 
 --/
 
