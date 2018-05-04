@@ -232,8 +232,8 @@ MODULE main
   --      and the cabin must be stopped.
 LTLSPEC G( isNoButtonPressed = TRUE & cabin.floor = 1 & door.status = open -> cabin.direction = stop & ctrl.door_cmd = nop);
 
-LTLSPEC ( isNoButtonPressed & cabin.floor = 2 & X !button_2.pressed -> X cabin.floor = 1 );
-LTLSPEC ( isNoButtonPressed & cabin.floor = 3 & X !button_3.pressed -> X cabin.floor = 2 );
+LTLSPEC G( isNoButtonPressed & cabin.floor = 2 & X isNoButtonPressed -> X cabin.floor = 1 );
+LTLSPEC G( isNoButtonPressed & cabin.floor = 3 & X isNoButtonPressed -> X cabin.floor = 2 );
 ---------------------------------------------------------------------------
 
 
