@@ -1,0 +1,10 @@
+For windows need to define java/bin in PATH
+also define Compile of JPF as JPF_HOME
+
+Build command:
+javac -classpath %JPF_HOME%/build/jpf.jar *.java
+
+Run JPF command:
+%JPF_HOME%/bin/jpf DiningPhil.jpf
+ > log.txt
+ 

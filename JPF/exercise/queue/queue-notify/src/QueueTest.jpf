@@ -1,0 +1,12 @@
+target=QueueTest
+
+classpath=.
+sourcepath=.
+
+extensions=${jpf-core}
+
+report.console.property_violation=result,error,trace,snapshot
+vm.reuse_tid=true
+cg.threads.break_arrays=true
+cg.break_single_choice=true
+vm.shared.sync_detection=false
