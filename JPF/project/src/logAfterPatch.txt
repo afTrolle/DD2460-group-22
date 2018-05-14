@@ -1,0 +1,915 @@
+JavaPathfinder core system v8.0 - (C) 2005-2014 United States Government. All rights reserved.
+
+
+====================================================== system under test
+WebServer.main()+jdl.main("http://localhost/test")
+
+====================================================== search started: 5/14/18 10:09 PM
+logging to stdout
+root=/home/alex/DD2460-group-22/JPF/project/src
+timeout=5000
+workers=0
+GET null-->200
+Main download finished.
+Worker: Download from 2 to 3
+GET null-->200
+Workers finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+GET null-->200
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+GET null-->200
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+GET null-->200
+Main download finished.
+Main download finished.
+Worker: Download from 2 to 3
+Main download finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+GET null-->200
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Main download finished.
+Main download finished.
+GET null-->200
+Main download finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Main download finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Main download finished.
+Worker: Download from 2 to 3
+Main download finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Main download finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Main download finished.
+Worker: Download from 2 to 3
+Main download finished.
+GET null-->200
+Workers finished.
+GET null-->200
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+Worker: Download from 2 to 3
+Main download finished.
+GET null-->200
+Workers finished.
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+Worker: Download from 2 to 3
+Main download finished.
+GET null-->200
+Workers finished.
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+Main download finished.
+GET null-->200
+GET null-->200
+Main download finished.
+GET null-->200
+Main download finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Worker: Download from 2 to 3
+Main download finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+GET null-->200
+Main download finished.
+GET null-->200
+Workers finished.
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+Main download finished.
+GET null-->200
+GET null-->200
+Main download finished.
+GET null-->200
+Main download finished.
+GET null-->200
+GET null-->200
+Main download finished.
+GET null-->200
+Main download finished.
+GET null-->200
+GET null-->200
+Main download finished.
+GET null-->200
+Main download finished.
+GET null-->200
+GET null-->200
+Main download finished.
+GET null-->200
+Main download finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Worker: Download from 2 to 3
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+GET null-->200
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Worker: Download from 2 to 3
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+GET null-->200
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Workers finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Workers finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Workers finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Workers finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Worker: Download from 2 to 3
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+GET null-->200
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+GET null-->200
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Worker: Download from 2 to 3
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+GET null-->200
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Workers finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Workers finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Workers finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Workers finished.
+Main download finished.
+Workers finished.
+Workers finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+GET null-->200
+Worker: Download from 2 to 3
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Workers finished.
+Main download finished.
+GET null-->200
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+GET null-->200
+Worker: Download from 2 to 3
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+Workers finished.
+Main download finished.
+GET null-->200
+Main download finished.
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+Main download finished.
+Main download finished.
+Worker: Download from 2 to 3
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Main download finished.
+Worker: Download from 2 to 3
+Main download finished.
+Main download finished.
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+Worker: Download from 2 to 3
+GET null-->200
+
+====================================================== results
+no errors detected
+
+====================================================== statistics
+elapsed time:       00:00:04
+states:             new=9926,visited=9112,backtracked=19038,end=178
+search:             maxDepth=106,constraints=0
+choice generators:  thread=9924 (signal=0,lock=2631,sharedRef=5457,threadApi=2,reschedule=929), data=0
+heap:               new=12506,released=31916,maxLive=1081,gcCycles=17088
+instructions:       957639
+max memory:         414MB
+loaded code:        classes=104,methods=3602
+
+====================================================== search finished: 5/14/18 10:09 PM
