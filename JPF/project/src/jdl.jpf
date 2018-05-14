@@ -1,0 +1,24 @@
+@using=jpf-nas
+
+target.0=WebServer
+target.1=jdl
+
+target.args.1=http://localhost/test
+
+jdl=.
+
+vm.nas.initiating_target = 0
+
+# deactivate finalizers which are used to clean up the communication channels
+vm.process_finalizers = false
+
+listener=gov.nasa.jpf.listener.PreciseRaceDetector
+cg.threads.break_arrays=true
+
+#race.exclude=Downloader.main_finished
+
+jdl.classpath=.
+jdl.sourcepath=.
+
+report.console.property_violation=result,error,trace,snapshot
+vm.reuse_tid=false
