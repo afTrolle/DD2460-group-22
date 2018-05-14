@@ -127,10 +127,13 @@ public class Downloader extends Thread {
 		int end = length;
 		int chunkSize = length / (downloaders + 1);
 		int start = 0;
-		for (int i = 0; i < downloaders; i++) {
-			start = end - chunkSize;
-			new Downloader(start, end).start();
-			end = end - chunkSize;
+
+		synchronized (output) {
+			for (int i = 0; i < downloaders; i++) {
+				start = end - chunkSize;
+				new Downloader(start, end).start();
+				end = end - chunkSize;
+			}
 		}
 		firstWorkerStart = start;
 	}
@@ -139,10 +142,10 @@ public class Downloader extends Thread {
 		System.out.println("Worker: Download from " + start + " to " + end);
 		connect();
 		getData(is, start, end, false);
-		downloaders--;
-		if (downloaders == 0) { // workers finished
-			System.out.println("Workers finished.");
-			synchronized (output) {
+		synchronized (output) {
+			downloaders--;
+			if (downloaders == 0) { // workers finished
+				System.out.println("Workers finished.");
 				if (firstChunkOK && !main_finished) {
 					try {
 						output.close();
