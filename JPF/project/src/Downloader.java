@@ -33,6 +33,7 @@ public class Downloader extends Thread {
 	}
 
 	public void die(String msg, Exception e) {
+		assert(false);
 		System.err.println(msg + ": " + e);
 		e.printStackTrace();
 		System.exit(1);
